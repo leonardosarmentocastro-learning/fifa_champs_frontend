@@ -1,0 +1,24 @@
+// NOTE:
+// The path used on "url()" is not relative to this file.
+// It is relative to the file that is importing it, in that case, the "<App>" component.
+
+@font-face {
+  font-family: 'dinpro-condensed-bold';
+  src:
+    url('../../shared/assets/fonts/dinpro-condensed-bold.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'opensans-semibold';
+  src:
+    url('../../shared/assets/fonts/opensans-semibold.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'opensans';
+  src:
+    url('../../shared/assets/fonts/opensans.ttf')
+    format('truetype');
+}
