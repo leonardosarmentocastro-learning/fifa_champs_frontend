@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
+import NavigationBar from '../NavigationBar';
 import './index.styles.css';
 
 class ResultsPage extends Component {
   render() {
     return (
-      <div className='results-page'>
-        TODO: ResultsPage
-      </div>
+      <Fragment>
+        <NavigationBar />
+
+        <div className='results-page'>
+
+        </div>
+      </Fragment>
     );
   }
 }

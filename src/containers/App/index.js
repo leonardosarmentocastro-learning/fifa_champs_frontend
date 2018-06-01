@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom';
 
 import ResultsPage from '../ResultsPage';
+import '../../shared/styles/font-faces.css';
+import '../../shared/styles/variables.css';
 import './index.styles.css';
 
 class App extends Component {

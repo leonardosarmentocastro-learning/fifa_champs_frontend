@@ -1,7 +1,3 @@
-// NOTE:
-// The path used on "url()" is not relative to this file.
-// It is relative to the file that is importing it, in that case, the "<App>" component.
-
 @font-face {
   font-family: 'dinpro-condensed-bold';
   src:
