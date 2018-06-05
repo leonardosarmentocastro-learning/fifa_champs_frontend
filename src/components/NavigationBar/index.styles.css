@@ -1,3 +1,43 @@
 .navigation-bar {
+  position: fixed;
+  top: 0;
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  height: 6rem;
+  width: 100vw;
+  padding: 1.2rem;
+
   background-color: var(--color-primary);
+  box-shadow: 0 .2rem .3rem rgba(0, 0, 0, 0.2);
+}
+
+.navigation-bar > .title {
+  display: flex;
+  align-items: center;
+}
+
+.navigation-bar > .title > .text {
+  color: var(--color-secondary);
+
+  font-size: 2.4rem;
+  font-family: 'dinpro-condensed-bold';
+  text-transform: uppercase;
+}
+
+.navigation-bar > .menu {
+  display: flex;
+  justify-self: end;
+  align-items: center;
+}
+
+.navigation-bar > .menu > .button {
+  height: 3.6rem;
+  width: 3.6rem;
+
+  border: none;
+  outline: none;
+
+  background: url('./menu-icon.png');
 }
