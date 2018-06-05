@@ -1,4 +1,7 @@
 :root {
+  --color-button-ice: #e5e5e5;
   --color-primary: #201a56;
   --color-secondary: #c0ff36;
+
+  --navigation-bar-height: 6rem;
 }
