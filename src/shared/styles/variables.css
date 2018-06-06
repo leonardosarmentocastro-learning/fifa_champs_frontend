@@ -1,7 +1,10 @@
 :root {
   --color-button-ice: #e5e5e5;
+  --color-button-lemon: #c0ff36;
   --color-primary: #201a56;
   --color-secondary: #c0ff36;
 
   --navigation-bar-height: 6rem;
+
+  --page-height: calc(100vh - var(--navigation-bar-height));
 }

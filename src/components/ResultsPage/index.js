@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
+import ActionButton from '../ActionButton';
 import NavigationBar from '../NavigationBar';
 import './index.styles.css';
 
@@ -10,19 +11,28 @@ class ResultsPage extends Component {
         <NavigationBar />
 
         <div className='results-page'>
-          <p className='title offset-below'>Resultados da temporada</p>
-
-          <div className='action-buttons'>
-            <button className='select-season'>
-              <div className='common-area'>
-                <p className='text'>Maio 2018</p>
-              </div>
-
-              <span className='faded-area'>
-                <span className='icon' />
-              </span>
-            </button>
+          <div className='title-container'>
+            <p className='title'>Resultados da temporada</p>
           </div>
+
+          <div className='action-buttons-container'>
+            <ActionButton
+              colorName='ice'
+              iconName='arrow-down'
+              text='Junho 2018'
+            />
+
+            <ActionButton
+              colorName='lemon'
+              iconName='add'
+              text='Adicionar partida'
+              tweaks={{
+                isTextUnderlined: false,
+              }}
+            />
+          </div>
+
+
         </div>
       </Fragment>
     );
