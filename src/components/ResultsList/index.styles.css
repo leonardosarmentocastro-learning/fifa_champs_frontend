@@ -1,0 +1,66 @@
+.results-list {
+  --gutter: 2.4rem;
+}
+
+/* @component */
+.results-list > .title-container {
+  display: flex;
+  justify-items: flex-start;
+
+  margin-bottom: 1.2rem;
+  padding: 0 var(--gutter);
+}
+
+.results-list > .title-container > .title {
+  font-family: 'opensans-semibold';
+  font-size: 1.6rem;
+}
+
+/* @component */
+.results-list > .list > .item {
+  list-style: none;
+
+  border-bottom: 1px solid var(--color-border-ice);
+}
+
+.results-list > .list > .item:first-of-type {
+  border-top: 1px solid var(--color-border-ice);
+}
+
+.results-list > .list > .item > .match-details {
+  display: grid;
+  grid-template-columns: 1fr 6rem 1fr;
+  grid-template-rows: 6rem;
+}
+
+.results-list > .list > .item > .match-details > .container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+
+  height: 100%;
+
+  padding: 1.2rem;
+}
+
+.results-list > .list > .item > .match-details > .container > .player {
+  font-size: 1.2rem;
+}
+
+.results-list > .list > .item > .match-details > .home-players {
+  justify-self: flex-end;
+}
+
+.results-list > .list > .item > .match-details > .score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1.8rem .6rem;
+
+  font-family: 'opensans-semibold';
+  font-size: 1.2rem;
+
+  background-color: var(--color-secondary);
+}

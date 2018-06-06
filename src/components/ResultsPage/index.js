@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import ActionButton from '../ActionButton';
 import NavigationBar from '../NavigationBar';
+import ResultsList from '../ResultsList';
 import './index.styles.css';
 
 class ResultsPage extends Component {
@@ -32,7 +33,9 @@ class ResultsPage extends Component {
             />
           </div>
 
-
+          <div className='results-list-container'>
+            <ResultsList />
+          </div>
         </div>
       </Fragment>
     );
