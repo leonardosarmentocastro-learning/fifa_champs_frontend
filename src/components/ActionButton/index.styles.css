@@ -1,5 +1,6 @@
-/* @component */
 .action-button {
+  --color-button-ice: #e5e5e5;
+  --color-button-lemon: #c0ff36;
   --faded-area-width: 4.8rem;
 
   display: grid;

@@ -1,9 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
+import MatchlDetails from '../MatchDetails';
+import MatchTags from '../MatchTags';
 import './index.styles.css';
 
-const ResultsList = ({ results }) => (
+const ResultsList = () => (
   <div className='results-list'>
     <div className='title-container'>
       {/* TODO: use props. */}
@@ -14,31 +16,25 @@ const ResultsList = ({ results }) => (
       {/* TODO: use props. */}
       {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => (
         <li className='item'>
-          <div className='match-details'>
-            <div className='home-players container'>
-              <p className='player'>@rborcat</p>
-              <p className='player'>@baiano</p>
-            </div>
+          <MatchlDetails
+            // ...
+            // awayTeam: { players: ['@baiano', '@alan'], score: 0 }
+            // homeTeam: { players: ['@gil', '@rborcat'], score: 3 }
+          />
 
-            <div className='score'>3 - 0</div>
-
-            <div className='away-players container'>
-              <p className='player'>@gil</p>
-              <p className='player'>@alan</p>
-            </div>
-          </div>
-
-          {/* TODO */}
-          <div className='tags'>
-          </div>
+          <MatchTags
+            // ...
+            // tags: ['#pureDominance', '#golAos90']
+          />
         </li>)
       )}
     </ul>
   </div>
 );
 
+// TODO: to be defined.
 ResultsList.propTypes = {
-  results: PropTypes.array.isRequired,
+  // results: PropTypes.array.isRequired,
 };
 
 export default ResultsList;

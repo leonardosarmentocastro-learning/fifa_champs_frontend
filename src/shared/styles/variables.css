@@ -1,11 +1,11 @@
 :root {
-  --color-border-ice: #e5e5e5;
-  --color-button-ice: #e5e5e5;
-  --color-button-lemon: #c0ff36;
+  /* C */
   --color-primary: #201a56;
   --color-secondary: #c0ff36;
 
+  /* N */
   --navigation-bar-height: 6rem;
 
+  /* P */
   --page-height: calc(100vh - var(--navigation-bar-height));
 }
