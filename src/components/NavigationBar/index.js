@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import './index.styles.css';
 
 class NavigationBar extends Component {
-  state = {
-    isOpen: false,
-  };
-
-  toggleMenu() {
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen,
-    }));
-  }
-
   render() {
     return (
       <header className={`navigation-bar
-        ${this.state.isOpen ? '--menu-is-open' : ''}
+        ${this.props.isOpen ? '--menu-is-open' : ''}
       `.trim()}>
         <div className='title'>
           <p className='text'># fifa-champs</p>
@@ -24,7 +15,7 @@ class NavigationBar extends Component {
 
         <div className='menu-container'>
           <div className='menu'
-            onClick={() => this.toggleMenu()}
+            onClick={() => this.props.toggleMenu()}
           >
             <span className='text'>Menu</span>
 
@@ -39,5 +30,10 @@ class NavigationBar extends Component {
     );
   }
 }
+
+NavigationBar.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+};
 
 export default NavigationBar;

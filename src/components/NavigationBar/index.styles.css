@@ -46,6 +46,8 @@
 }
 
 .navigation-bar > .menu-container > .menu {
+  cursor: pointer;
+
   display: flex;
   align-items: center;
 

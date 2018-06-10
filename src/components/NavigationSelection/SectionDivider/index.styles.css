@@ -1,0 +1,10 @@
+.navigation-selection .section-divider {
+  background-color: var(--color-ice);
+}
+
+.navigation-selection .section-divider > .text {
+  color: var(--color-dark);
+  font-size: 1.8rem;
+  font-family: 'dinpro-condensed-bold';
+  text-transform: uppercase;
+}

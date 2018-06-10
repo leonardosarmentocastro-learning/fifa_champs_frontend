@@ -1,5 +1,5 @@
 .action-button {
-  --color-button-dark: #040004;
+  --color-button-dark: var(--color-dark);
   --color-button-hotpink: #fd0168;
   --faded-area-width: 4.8rem;
 

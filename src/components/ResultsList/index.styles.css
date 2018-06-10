@@ -22,11 +22,11 @@
   list-style: none;
   cursor: pointer;
 
-  border-bottom: 1px solid var(--color-border-ice);
+  border-bottom: .1rem solid var(--color-border-ice);
 }
 
 .results-list > .list > .item:first-of-type {
-  border-top: 1px solid var(--color-border-ice);
+  border-top: .1rem solid var(--color-border-ice);
 }
 
 .results-list > .list > .item:last-of-type {

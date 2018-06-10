@@ -6,7 +6,6 @@
   flex-direction: column;
 
   height: var(--page-height);
-
   margin-top: var(--navigation-bar-height);
 }
 
