@@ -18,13 +18,13 @@ class ResultsPage extends Component {
 
           <div className='action-buttons-container'>
             <ActionButton
-              colorName='ice'
+              colorName='dark'
               iconName='arrow-down'
               text='Junho 2018'
             />
 
             <ActionButton
-              colorName='lemon'
+              colorName='hotpink'
               iconName='add'
               text='Adicionar partida'
               tweaks={{

@@ -43,5 +43,6 @@
 }
 
 .results-list > .list > .item:hover > .match-details .score {
+  color: black;
   background-color: white;
 }

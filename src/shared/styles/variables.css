@@ -1,7 +1,8 @@
 :root {
   /* C */
-  --color-primary: #201a56;
-  --color-secondary: #c0ff36;
+  --color-primary: #002d8a;
+  --color-secondary: #fd0168;
+  --color-tertiary: #fff;
 
   /* N */
   --navigation-bar-height: 6rem;

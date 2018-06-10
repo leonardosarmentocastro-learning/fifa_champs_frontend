@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import ResultsPage from '../ResultsPage';
+import SignupPage from '../SignupPage';
 import '../../shared/styles/font-faces.css';
 import '../../shared/styles/variables.css';
 import './index.styles.css';
@@ -17,12 +18,17 @@ class App extends Component {
       <Router>
         <Switch>
           <Route
-            exact path={'/'}
+            exact path={'/results'}
             render={() => <ResultsPage />}
           />
 
           <Route
-            render={() => <Redirect to={'/'} />}
+            exact path={'/sign_up'}
+            render={() => <SignupPage />}
+          />
+
+          <Route
+            render={() => <Redirect to={'/sign_up'} />}
           />
         </Switch>
       </Router>

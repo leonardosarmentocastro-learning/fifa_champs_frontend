@@ -1,6 +1,6 @@
 .action-button {
-  --color-button-ice: #e5e5e5;
-  --color-button-lemon: #c0ff36;
+  --color-button-dark: #040004;
+  --color-button-hotpink: #fd0168;
   --faded-area-width: 4.8rem;
 
   display: grid;
@@ -24,6 +24,7 @@
 }
 
 .action-button > .text-area > .text {
+  color: #fff;
   font-family: 'opensans';
   font-size: 1.8rem;
 }
@@ -44,12 +45,12 @@
 }
 
 /* @variants */
-.action-button.--color-ice {
-  background-color: var(--color-button-ice);
+.action-button.--color-dark {
+  background-color: var(--color-button-dark);
 }
 
-.action-button.--color-lemon {
-  background-color: var(--color-button-lemon);
+.action-button.--color-hotpink {
+  background-color: var(--color-button-hotpink);
 }
 
 .action-button > .faded-area > .icon.--icon-add {

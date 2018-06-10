@@ -28,7 +28,7 @@ const ActionButton = ({
   </div>
 );
 
-const COLOR_NAMES = ['ice', 'lemon'];
+const COLOR_NAMES = ['dark', 'hotpink'];
 const ICON_NAMES = ['add', 'arrow-down'];
 
 ActionButton.propTypes = {
