@@ -19,6 +19,7 @@ class NavigationContainer extends Component {
       text={'Xampions liga'}
     />,
     <LinkToPage
+      isLinkHighlighted={() => this.isLinkHighlighted('/results')}
       title={'Resultados'}
       subtitle={'da temporada'}
       redirectToPage={() => this.redirectToPage('/results')}
@@ -27,10 +28,23 @@ class NavigationContainer extends Component {
       text={'Area do jogador'}
     />,
     <LinkToPage
+      isLinkHighlighted={() => this.isLinkHighlighted('/sign_up')}
       title={'Registrar-se'}
       redirectToPage={() => this.redirectToPage('/sign_up')}
     />,
   ];
+
+  isLinkHighlighted = (pageUrl) => {
+    const isLinkHighlighted = true;
+
+    const currentPageUrl = this.props.history.location.pathname;
+    const doesPageUrlRefersToCurrentPageUrl = (currentPageUrl === pageUrl);
+    if (doesPageUrlRefersToCurrentPageUrl) {
+      return isLinkHighlighted;
+    }
+
+    return !isLinkHighlighted;
+  }
 
   redirectToPage = (pageUrl) => {
     const callback = () => this.props.history.push(pageUrl);

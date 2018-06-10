@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import './index.styles.css';
 
 const LinkToPage = (props) => (
-  <li className='item link'
+  <li className={`item link
+    ${props.isLinkHighlighted() ? '--is-highlited' : ''}
+    `.trim()}
     onClick={() => props.redirectToPage()}
   >
     <p className='title'>{props.title}</p>
@@ -16,9 +18,10 @@ const LinkToPage = (props) => (
 );
 
 LinkToPage.propTypes = {
+  isLinkHighlighted: PropTypes.func.isRequired,
   redirectToPage: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
 
 export default LinkToPage;

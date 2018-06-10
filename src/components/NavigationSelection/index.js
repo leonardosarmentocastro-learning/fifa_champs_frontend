@@ -22,10 +22,7 @@ class NavigationSelection extends Component {
 }
 
 NavigationSelection.propTypes = {
-  menuItems: PropTypes.oneOfType([
-    PropTypes.arrayOf(LinkToPage),
-    PropTypes.arrayOf(SectionDivider)
-  ]),
+  menuItems: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 export default NavigationSelection;

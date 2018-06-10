@@ -15,7 +15,7 @@ const ResultsList = () => (
     <ul className='list'>
       {/* TODO: use props. */}
       {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => (
-        <li className='item'>
+        <li className='item' key={n}>
           <MatchlDetails
             // ...
             // awayTeam: { players: ['@baiano', '@alan'], score: 0 }

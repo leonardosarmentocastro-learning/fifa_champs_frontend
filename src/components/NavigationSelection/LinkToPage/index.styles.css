@@ -25,3 +25,16 @@
 .navigation-selection .link:hover > .subtitle {
   color: #fff;
 }
+
+/* @variant --is-highlighted */
+.navigation-selection .link.--is-highlited {
+  background-color: var(--color-secondary);
+}
+
+.navigation-selection .link.--is-highlited > .title {
+  color: #fff;
+}
+
+.navigation-selection .link.--is-highlited > .subtitle {
+  color: #fff;
+}
