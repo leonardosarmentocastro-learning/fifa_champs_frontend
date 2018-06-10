@@ -1,4 +1,8 @@
 .navigation-bar {
+  --gutter: 2.4rem;
+  --menu-is-closed-border: .2rem solid var(--color-primary);
+  --menu-is-open-border: .2rem solid var(--color-secondary);
+
   position: fixed;
   top: 0;
 
@@ -7,15 +11,19 @@
 
   height: var(--navigation-bar-height);
   width: 100vw;
-  padding: 1.2rem 2.4rem;
 
   background-color: var(--color-primary);
   box-shadow: 0 .2rem .3rem rgba(0, 0, 0, 0.2);
 }
 
+/* @component */
 .navigation-bar > .title {
   display: flex;
   align-items: center;
+
+  padding: 0 var(--gutter);
+
+  border-bottom: var(--menu-is-closed-border);
 }
 
 .navigation-bar > .title > .text {
@@ -26,18 +34,80 @@
   text-transform: uppercase;
 }
 
-.navigation-bar > .menu {
+/* @component */
+.navigation-bar > .menu-container {
   display: flex;
-  justify-self: end;
-  align-items: center;
+  justify-content: flex-end;
+
+  height: 100%;
+  width: 100%;
+
+  border-bottom: var(--menu-is-closed-border);
 }
 
-.navigation-bar > .menu > .button {
-  height: 3.6rem;
-  width: 3.6rem;
+.navigation-bar > .menu-container > .menu {
+  display: flex;
+  align-items: center;
 
-  border: none;
-  outline: none;
+  height: 100%;
+  padding: 0 var(--gutter);
 
-  background: url('./menu-icon.png');
+  background-color: var(--color-primary);
+}
+
+.navigation-bar > .menu-container > .menu > .text {
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: 'opensans-semibold';
+  text-transform: uppercase;
+}
+
+.navigation-bar > .menu-container > .menu > .icon {
+  display: inline-block;
+
+  margin-top: .3rem;
+  margin-left: 1.2rem;
+}
+
+.navigation-bar > .menu-container > .menu > .icon div {
+  height: .3rem;
+  width: 2rem;
+
+  margin-bottom: .3rem;
+
+  border-radius: .3rem;
+  background-color: #fff;
+}
+
+/* @variant --menu-is-open */
+.navigation-bar.--menu-is-open > .title {
+  border-bottom: var(--menu-is-open-border);
+}
+
+.navigation-bar.--menu-is-open > .menu-container {
+  border-bottom: var(--menu-is-open-border);
+}
+
+.navigation-bar.--menu-is-open > .menu-container > .menu {
+  background-color: var(--color-secondary);
+}
+
+.navigation-bar.--menu-is-open > .menu-container > .menu > .icon {
+  margin-top: .6rem;
+}
+
+.navigation-bar.--menu-is-open > .menu-container > .menu > .icon div {
+  margin-bottom: 0;
+}
+
+.navigation-bar.--menu-is-open > .menu-container > .menu > .icon div:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.navigation-bar.--menu-is-open > .menu-container > .menu > .icon div:nth-child(2) {
+  transform: scale(0);
+}
+
+.navigation-bar.--menu-is-open > .menu-container > .menu > .icon div:nth-child(3) {
+  transform: rotate(-45deg) translate(.4rem, -.4rem);
 }

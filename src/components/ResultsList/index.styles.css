@@ -39,10 +39,10 @@
 }
 
 .results-list > .list > .item:hover > .match-details .player {
-  color: white;
+  color: #fff;
 }
 
 .results-list > .list > .item:hover > .match-details .score {
   color: black;
-  background-color: white;
+  background-color: #fff;
 }
