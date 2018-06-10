@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkToPage from './LinkToPage';
-import SectionDivider from './SectionDivider';
 import './index.styles.css';
 
 class NavigationSelection extends Component {
