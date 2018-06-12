@@ -1,0 +1,109 @@
+.text-input {
+  --color-input-field-background: #E8E8E8;
+  --color-input-field-border: #76766f;
+
+  min-width: 24rem;
+  width: 100%; /* It will scale with the container, and the container should have a "max-width" to grow. */
+  height: 7.2rem;
+}
+
+/* @component */
+.text-input > .field-details {
+  --status-icon-width: 2.5rem;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr var(--status-icon-width);
+
+  height: 2.4rem;
+}
+
+.text-input > .field-details > .text {
+  font-family: 'opensans-semibold';
+}
+
+.text-input > .field-details > .label.text {
+  font-size: 1.4rem;
+}
+
+.text-input > .field-details > .required-warning.text {
+  padding-left: 1.2rem;
+
+  font-size: 1.2rem;
+  color: var(--color-secondary);
+}
+
+.text-input > .field-details > .status-icon {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.text-input > .field-details > .status-icon div {
+  --icon-line-height: .3rem;
+  --icon-line-width: 1.2rem;
+
+  height: var(--icon-line-height);
+  width: var(--icon-line-width);
+
+  background-color: #fff;
+  border-radius: .3rem;
+}
+
+/* @variant */
+.text-input > .field-details > .status-icon.--is-pristine {
+  display: none;
+}
+
+/* @variant */
+.text-input > .field-details > .status-icon.--has-errors {
+  background-color: var(--color-secondary);
+}
+
+.text-input > .field-details > .status-icon.--has-errors div:nth-child(1) {
+  transform: translate(.65rem, 1.05rem) rotate(45deg);
+}
+
+.text-input > .field-details > .status-icon.--has-errors div:nth-child(2) {
+  transform: translate(.65rem, .75rem) rotate(-45deg)
+}
+
+/* @variant */
+.text-input > .field-details > .status-icon.--has-no-errors {
+  background-color: var(--color-green);
+}
+
+.text-input > .field-details > .status-icon.--has-no-errors div:nth-child(1) {
+  width: calc(var(--icon-line-width) / 2);
+  transform: translate(.6rem, 1.2rem) rotate(45deg);
+}
+
+.text-input > .field-details > .status-icon.--has-no-errors div:nth-child(2) {
+  transform: translate(.8rem, .75rem) rotate(-45deg);
+}
+
+/* @component */
+.text-input > .field-container {
+  height: 4.8rem;
+  margin-top: .6rem;
+}
+
+.text-input > .field-container > .input-field {
+  width: 100%;
+  height: 100%;
+
+  /* TODO: Refactor: color already exists("MatchTags" component), we must create a shared variable. */
+  background-color: var(--color-input-field-background);
+  border: 0;
+  border-bottom: 1px solid var(--color-input-field-border);
+
+  font-size: 1.6rem;
+
+  padding: 1.8rem;
+}
+
+.text-input > .field-container > .input-field:focus {
+  background: #fff;
+  border: 1px solid var(--color-input-field-background);
+  border-bottom: 1px solid var(--color-secondary);
+}

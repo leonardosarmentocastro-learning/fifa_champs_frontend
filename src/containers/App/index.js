@@ -11,6 +11,7 @@ import ResultsPageContainer from '../ResultsPage';
 import SignupPageContainer from '../SignupPage';
 import '../../shared/styles/font-faces.css';
 import '../../shared/styles/variables.css';
+import '../../shared/styles/props-for-page.css';
 import './index.styles.css';
 
 class App extends Component {
