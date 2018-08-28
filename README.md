@@ -1,150 +1,52 @@
-# FIFA-CHAMPS
+# fifa_champs_frontend
 
-***S O O N.***
+## Roadmap
 
-**V2 SCHEMAS**
-
-> If you are not going to use mongoose Schema attributes/validations, there is no need to use "mongoose.Schema" to create a schema.
-
-### USER SCHEMA
-
-```js
-const user = {
-  id: '123',
-
-  // [SCHEMA] ("public" schema) will be copied into other schemas that relies on user data;
-  publicFields: {
-    slack: {
-      displayName: 'gil',
-      icon: 'spechless-gil'
-    },
-  },
-
-  // [SCHEMA] ("private" schema) this one will NOT be copied into another schemas
-  privateFields: {
-    password: '',
-  },
-};
-```
-
-### SEASON SCHEMA
-
-```js
-const season = {
-  'jun/2018': {
-    matches: [
-      // [SCHEMA] match
-      {
-        // [SCHEMA] ChosenTeam
-        awayTeam: {
-          players: [
-            { id, ...user.public }, // @baiano
-            { id, ...user.public } // @rborcat
-          ],
-          score: 0,
-          team: {
-            name: 'Barcelona',
-            league: 'La liga'
-          },
-        },
-
-        date: '', // ISO FORMAT (the front-end is in charge of displaying it the way it prefers)
-
-        // [SCHEMA] ChosenTeam
-        homeTeam: {
-          players: [
-            { id, ...user.public }, // @gil
-            { id, ...user.public } // @rborcat
-          ],
-          score: 3,
-          team: {
-            name: 'Real Madrid',
-            league: 'La liga'
-          },
-        },
-
-        isSeasonFinalMatch: true,
-
-        summaryByPlayer: [
-          {
-            user: { id, ...user.public },
-            hasPlayedAsHomeTeam: true,
-            hasWonTheMatch: true,
-            goalsScored: 3,
-          },
-        ],
-      }
-    ],
-
-    // [SCHEMA] StatsByPlayer
-    statsByPlayer: [
-      {
-        id,
-        stats: {
-          wins: 0,
-          draws: 0,
-          losses: 0,
-          played: 0,
-          points: 0,
-          goalsAgainst: 0,
-          goalsFor: 0,
-          goalsDifference: 0
-        },
-
-        // [SCHEMA] user
-        user: { id, ...user.public },
-      }
-    ],
-  }
-};
-```
-
-**V1 SCHEMA**
-
-```js
-const user = {
-  slack: {
-    displayName: 'gil',
-    icon: 'spechless-gil'
-  },
-  password: '',
-  matchesForSeason: {
-    'jun/2018': [
-      summary: {
-        didWinTheMatch: true,
-        isSeasonFinalMatch: true,
-        goalsScored: 3,
-        wasPlayingAsHomeTeam: true,
-      },
-      awayTeam: {
-        players: ['@alan', '@baiano'],
-        score: 0,
-        team: {
-          name: 'Barcelona',
-          league: 'La liga'
-        },
-      },
-      homeTeam: {
-        players: ['@gil', '@rborcat'],
-        score: 3,
-        team: {
-          name: 'Real Madrid',
-          league: 'La liga'
-        },
-      },
-    ]
-  },
-  statsForSeason: {
-    'jun/2018': {
-      wins: 0,
-      draws: 0,
-      losses: 0,
-      played: 0,
-      points: 0,
-      goalsAgainst: 0,
-      goalsFor: 0,
-      goalsDifference: 0
-    }
-  }
-}
-```
+1. Refactor:
+  * Turn `index.js` files into barrels that exports the actual component (the component should be named as `ActionButton` not `action-button`)
+  * The respective style files should replace `index.styles.css` to `ActionButton.styles.css`
+  * The style main class should be the component name, e.g.: `.ActionButton` instead of `.action-button`
+2. Sign up page
+  * form:
+    * email address
+      * [frontend] validation: can't be empty
+      * [frontend] validation: is valid email? (maybe use "email validator" package)
+      * [backend] validation: is already in use?
+    * username
+      * [frontend] validation: can't be empty
+      * [frontend] validation: not more than 16 characters
+      * [backend] validation: is already in use?
+    * password
+      * [frontend] validation: can't be empty
+      * [frontend] validation: not strong enough (show a check for each one validate checks)
+  * after completed successfully
+    * get token on "Authorization" header
+    * fire the Authentication process (redux)
+      * [search] how to and what to test?
+    * show success page (to be defined - look at the "Premier league" website)
+3. Sign in page
+  * form:
+    * choose between "email" or "username"
+    * if receives "email"
+      * [frontend] validation: can't be empty
+      * [frontend] validation: is valid email? (maybe use "email validator" package)
+    * if receives "username"
+      * [frontend] validation: can't be empty
+    * password
+      * [frontend] validation: can't be empty
+    * on submit
+      * if error
+        * [backend] validation: combination of credentials does not match
+      * if success
+        * get token on "Authorization" header
+        * fire the Authentication process (redux)
+          * add unit tests
+        * show "welcome" page (to be defined - look at the "Premier league" website)
+4. Logout button
+  * Destroy the token on local storage
+  * Redirects to "matches" page
+5. Add a match
+  * TBD
+...
+* i18n (so this work can be evaluted from my github)
+* Add e2e tests with Cypress (using the backend on a docker container)
