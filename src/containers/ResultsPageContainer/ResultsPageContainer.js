@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ResultsPage from '../../components/ResultsPage';
+import { ResultsPage } from '../../components/ResultsPage';
 
 class ResultsPageContainer extends Component {
   render() {

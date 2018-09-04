@@ -2,10 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import LinkToPage from '../../components/NavigationSelection/LinkToPage';
+import {
+  LinkToPage,
+  NavigationSelection,
+  SectionDivider,
+} from '../../components/NavigationSelection';
 import NavigationBar from '../../components/NavigationBar';
-import NavigationSelection from '../../components/NavigationSelection';
-import SectionDivider from '../../components/NavigationSelection/SectionDivider';
 
 class NavigationContainer extends Component {
   state = {
