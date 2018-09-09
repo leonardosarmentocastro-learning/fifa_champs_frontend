@@ -1,0 +1,48 @@
+.TextInput .StatusIcon {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.TextInput .StatusIcon div {
+  --icon-line-height: .3rem;
+  --icon-line-width: 1.2rem;
+
+  height: var(--icon-line-height);
+  width: var(--icon-line-width);
+
+  background-color: #fff;
+  border-radius: .3rem;
+}
+
+/* @variant */
+.TextInput .StatusIcon.--is-pristine {
+  display: none;
+}
+
+/* @variant */
+.TextInput .StatusIcon.--has-errors {
+  background-color: var(--color-secondary);
+}
+
+.TextInput .StatusIcon.--has-errors div:nth-child(1) {
+  transform: translate(.65rem, 1.05rem) rotate(45deg);
+}
+
+.TextInput .StatusIcon.--has-errors div:nth-child(2) {
+  transform: translate(.65rem, .75rem) rotate(-45deg)
+}
+
+/* @variant */
+.TextInput .StatusIcon.--has-no-errors {
+  background-color: var(--color-green);
+}
+
+.TextInput .StatusIcon.--has-no-errors div:nth-child(1) {
+  width: calc(var(--icon-line-width) / 2);
+  transform: translate(.6rem, 1.2rem) rotate(45deg);
+}
+
+.TextInput .StatusIcon.--has-no-errors div:nth-child(2) {
+  transform: translate(.8rem, .75rem) rotate(-45deg);
+}

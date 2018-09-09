@@ -23,9 +23,6 @@ export class ResultsPage extends Component {
             colorName='hotpink'
             iconName='add'
             text='Adicionar partida'
-            tweaks={{
-              isTextUnderlined: false,
-            }}
           />
         </div>
 

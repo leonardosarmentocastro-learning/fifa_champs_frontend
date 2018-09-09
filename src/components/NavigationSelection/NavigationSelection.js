@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './NavigationSelection.styles.css';
 
-export class NavigationSelection extends Component {
+class NavigationSelection extends Component {
   render() {
     return (
       <div className='NavigationSelection'>

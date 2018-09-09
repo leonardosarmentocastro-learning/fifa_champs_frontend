@@ -4,7 +4,6 @@
 
   min-width: 24rem;
   width: 100%; /* It will scale with the container, and the container should have a "max-width" to grow. */
-  height: 7.2rem;
 }
 
 /* @component */
@@ -18,68 +17,9 @@
   height: 2.4rem;
 }
 
-.TextInput > .field-details > .text {
+.TextInput > .field-details > .label {
   font-family: 'opensans-semibold';
-}
-
-.TextInput > .field-details > .label.text {
   font-size: 1.4rem;
-}
-
-.TextInput > .field-details > .required-warning.text {
-  padding-left: 1.2rem;
-
-  font-size: 1.2rem;
-  color: var(--color-secondary);
-}
-
-.TextInput > .field-details > .status-icon {
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
-}
-
-.TextInput > .field-details > .status-icon div {
-  --icon-line-height: .3rem;
-  --icon-line-width: 1.2rem;
-
-  height: var(--icon-line-height);
-  width: var(--icon-line-width);
-
-  background-color: #fff;
-  border-radius: .3rem;
-}
-
-/* @variant */
-.TextInput > .field-details > .status-icon.--is-pristine {
-  display: none;
-}
-
-/* @variant */
-.TextInput > .field-details > .status-icon.--has-errors {
-  background-color: var(--color-secondary);
-}
-
-.TextInput > .field-details > .status-icon.--has-errors div:nth-child(1) {
-  transform: translate(.65rem, 1.05rem) rotate(45deg);
-}
-
-.TextInput > .field-details > .status-icon.--has-errors div:nth-child(2) {
-  transform: translate(.65rem, .75rem) rotate(-45deg)
-}
-
-/* @variant */
-.TextInput > .field-details > .status-icon.--has-no-errors {
-  background-color: var(--color-green);
-}
-
-.TextInput > .field-details > .status-icon.--has-no-errors div:nth-child(1) {
-  width: calc(var(--icon-line-width) / 2);
-  transform: translate(.6rem, 1.2rem) rotate(45deg);
-}
-
-.TextInput > .field-details > .status-icon.--has-no-errors div:nth-child(2) {
-  transform: translate(.8rem, .75rem) rotate(-45deg);
 }
 
 /* @component */

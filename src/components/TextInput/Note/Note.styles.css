@@ -1,0 +1,7 @@
+.TextInput .Note {
+  padding-top: .3rem;
+
+  font-family: 'opensans';
+  font-size: 1.2rem;
+  white-space: pre-line;
+}

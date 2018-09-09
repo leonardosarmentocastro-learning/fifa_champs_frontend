@@ -12,3 +12,7 @@
 .SignupPage > .form > .TextInput:not(:first-of-type) {
   margin-top: 2.4rem;
 }
+
+.SignupPage > .form > .ActionButton {
+  margin-top: 2.4rem;
+}

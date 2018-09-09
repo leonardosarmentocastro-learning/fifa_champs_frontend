@@ -1,0 +1,7 @@
+.TextInput .FieldIsRequiredHint {
+  padding-left: 1.2rem;
+
+  font-family: 'opensans-semibold';
+  font-size: 1.2rem;
+  color: var(--color-secondary);
+}

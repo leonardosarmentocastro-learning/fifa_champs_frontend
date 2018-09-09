@@ -7,6 +7,7 @@
   <!-- * The respective style files should replace `index.styles.css` to `ActionButton.styles.css` -->
   <!-- * The style main class should be the component name, e.g.: `.ActionButton` instead of `.action-button` -->
 2. Sign up page
+  * Add variant for "isDisabled" on "ActionButton"
   * form:
     * email address
       * [frontend] validation: can't be empty

@@ -22,9 +22,11 @@ const ActionButton = ({
       </p>
     </div>
 
-    <span className='faded-area'>
-      <span className={`icon ${'--icon-' + iconName}`}/>
-    </span>
+    {iconName &&
+      <span className='faded-area'>
+        <span className={`icon ${'--icon-' + iconName}`}/>
+      </span>
+    }
   </div>
 );
 
@@ -33,7 +35,7 @@ const ICON_NAMES = ['add', 'arrow-down'];
 
 ActionButton.propTypes = {
   colorName: PropTypes.oneOf(COLOR_NAMES).isRequired,
-  iconName: PropTypes.oneOf(ICON_NAMES).isRequired,
+  iconName: PropTypes.oneOf(ICON_NAMES),
   onClick: PropTypes.func,
   text: PropTypes.string.isRequired,
   tweaks: PropTypes.shape({
@@ -43,11 +45,10 @@ ActionButton.propTypes = {
 
 ActionButton.defaultProps = {
   colorName: COLOR_NAMES[0],
-  iconName: ICON_NAMES[0],
   onClick: () => console.warn('[component] ActionButton: "onClick" event prop not set.'),
   text: '',
   tweaks: {
-    isTextUnderlined: true,
+    isTextUnderlined: false,
   }
 };
 
