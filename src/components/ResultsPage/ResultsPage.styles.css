@@ -1,21 +1,21 @@
-.results-page > .action-buttons-container {
+.ResultsPage > .action-buttons-container {
   width: 100%;
 
   margin-bottom: 6rem;
   padding: 0 var(--gutter);
 }
 
-.results-page > .action-buttons-container > .action-button:not(:last-child) {
+.ResultsPage > .action-buttons-container > .ActionButton:not(:last-child) {
   margin-bottom: 1.2rem;
 }
 
-.results-page > .results-list-container {
+.ResultsPage > .results-list-container {
   width: 100%;
 }
 
 /* @responsive */
 @media (min-width: 60rem) {
-  .results-page {
+  .ResultsPage {
     align-items: flex-start;
   }
 }

@@ -11,7 +11,7 @@ import './TextInput.styles.css';
 export class TextInput extends Component {
   render() {
     return (
-      <div className='text-input'>
+      <div className='TextInput'>
         <div className='field-details'>
           <span className='label text'>Slack display name</span>
           <span className='required-warning text'>* Required</span>

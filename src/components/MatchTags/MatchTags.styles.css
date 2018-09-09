@@ -1,4 +1,4 @@
-.match-tags {
+.MatchTags {
   --color-tag-background: #e8e8e8;
   --color-tag-text: #0a44b0;
 
@@ -9,7 +9,7 @@
   padding-bottom: .6rem;
 }
 
-.match-tags > .tag {
+.MatchTags > .tag {
   color: var(--color-tag-text);
   font-size: 1.2rem;
 
@@ -19,6 +19,6 @@
   background-color: var(--color-tag-background);
 }
 
-.match-tags > .tag:not(:last-of-type) {
+.MatchTags > .tag:not(:last-of-type) {
   margin-right: .6rem;
 }

@@ -1,40 +1,40 @@
-.navigation-selection .link {
+.NavigationSelection .LinkToPage {
   cursor: pointer;
 }
 
-.navigation-selection .link:hover {
+.NavigationSelection .LinkToPage:hover {
   background-color: var(--color-dark);
 }
 
-.navigation-selection .link > .title {
+.NavigationSelection .LinkToPage > .title {
   color: var(--color-dark);
   font-size: 1.4rem;
   font-family: 'opensans-semibold';
   text-transform: uppercase;
 }
 
-.navigation-selection .link:hover > .title {
+.NavigationSelection .LinkToPage:hover > .title {
   color: #fff;
 }
 
-.navigation-selection .link > .subtitle {
+.NavigationSelection .LinkToPage > .subtitle {
   font-size: 1rem;
   text-transform: uppercase;
 }
 
-.navigation-selection .link:hover > .subtitle {
+.NavigationSelection .LinkToPage:hover > .subtitle {
   color: #fff;
 }
 
 /* @variant --is-highlighted */
-.navigation-selection .link.--is-highlited {
+.NavigationSelection .LinkToPage.--is-highlited {
   background-color: var(--color-secondary);
 }
 
-.navigation-selection .link.--is-highlited > .title {
+.NavigationSelection .LinkToPage.--is-highlited > .title {
   color: #fff;
 }
 
-.navigation-selection .link.--is-highlited > .subtitle {
+.NavigationSelection .LinkToPage.--is-highlited > .subtitle {
   color: #fff;
 }

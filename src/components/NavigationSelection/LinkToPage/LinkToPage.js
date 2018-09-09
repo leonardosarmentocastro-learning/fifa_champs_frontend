@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './LinkToPage.styles.css';
 
 const LinkToPage = (props) => (
-  <li className={`item link
+  <li className={`LinkToPage item
     ${props.isLinkHighlighted() ? '--is-highlited' : ''}
     `.trim()}
     onClick={() => props.redirectToPage()}

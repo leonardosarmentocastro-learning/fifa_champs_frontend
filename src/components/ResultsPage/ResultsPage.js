@@ -7,7 +7,7 @@ import './ResultsPage.styles.css';
 export class ResultsPage extends Component {
   render() {
     return (
-      <div className='results-page shared-props-for-page'>
+      <div className='ResultsPage shared-props-for-page'>
         <div className='title-container'>
           <p className='title'>Resultados da temporada</p>
         </div>

@@ -1,4 +1,4 @@
-.action-button {
+.ActionButton {
   --color-button-dark: var(--color-dark);
   --color-button-hotpink: #fd0168;
   --faded-area-width: 4.8rem;
@@ -14,7 +14,7 @@
   cursor: pointer;
 }
 
-.action-button > .text-area {
+.ActionButton > .text-area {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,13 +23,13 @@
   padding-left: var(--faded-area-width);
 }
 
-.action-button > .text-area > .text {
+.ActionButton > .text-area > .text {
   color: #fff;
   font-family: 'opensans';
   font-size: 1.8rem;
 }
 
-.action-button > .faded-area {
+.ActionButton > .faded-area {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,29 +39,29 @@
   background-color: rgba(0, 0, 0, .5);
 }
 
-.action-button > .faded-area > .icon {
+.ActionButton > .faded-area > .icon {
   width: 2.4rem;
   height: 2.4rem;
 }
 
 /* @variants */
-.action-button.--color-dark {
+.ActionButton.--color-dark {
   background-color: var(--color-button-dark);
 }
 
-.action-button.--color-hotpink {
+.ActionButton.--color-hotpink {
   background-color: var(--color-button-hotpink);
 }
 
-.action-button > .faded-area > .icon.--icon-add {
+.ActionButton > .faded-area > .icon.--icon-add {
   background-image: url('./icons/add-icon.png');
 }
 
-.action-button > .faded-area > .icon.--icon-arrow-down {
+.ActionButton > .faded-area > .icon.--icon-arrow-down {
   background-image: url('./icons/arrow-down-icon.png');
 }
 
-.action-button > .text-area > .text.--is-underlined {
+.ActionButton > .text-area > .text.--is-underlined {
   border-bottom: .2rem solid black;
   padding-bottom: .2rem;
 }

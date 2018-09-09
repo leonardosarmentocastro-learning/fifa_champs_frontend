@@ -1,4 +1,4 @@
-.text-input {
+.TextInput {
   --color-input-field-background: #E8E8E8;
   --color-input-field-border: #76766f;
 
@@ -8,7 +8,7 @@
 }
 
 /* @component */
-.text-input > .field-details {
+.TextInput > .field-details {
   --status-icon-width: 2.5rem;
 
   display: grid;
@@ -18,28 +18,28 @@
   height: 2.4rem;
 }
 
-.text-input > .field-details > .text {
+.TextInput > .field-details > .text {
   font-family: 'opensans-semibold';
 }
 
-.text-input > .field-details > .label.text {
+.TextInput > .field-details > .label.text {
   font-size: 1.4rem;
 }
 
-.text-input > .field-details > .required-warning.text {
+.TextInput > .field-details > .required-warning.text {
   padding-left: 1.2rem;
 
   font-size: 1.2rem;
   color: var(--color-secondary);
 }
 
-.text-input > .field-details > .status-icon {
+.TextInput > .field-details > .status-icon {
   height: 100%;
   width: 100%;
   border-radius: 50%;
 }
 
-.text-input > .field-details > .status-icon div {
+.TextInput > .field-details > .status-icon div {
   --icon-line-height: .3rem;
   --icon-line-width: 1.2rem;
 
@@ -51,44 +51,44 @@
 }
 
 /* @variant */
-.text-input > .field-details > .status-icon.--is-pristine {
+.TextInput > .field-details > .status-icon.--is-pristine {
   display: none;
 }
 
 /* @variant */
-.text-input > .field-details > .status-icon.--has-errors {
+.TextInput > .field-details > .status-icon.--has-errors {
   background-color: var(--color-secondary);
 }
 
-.text-input > .field-details > .status-icon.--has-errors div:nth-child(1) {
+.TextInput > .field-details > .status-icon.--has-errors div:nth-child(1) {
   transform: translate(.65rem, 1.05rem) rotate(45deg);
 }
 
-.text-input > .field-details > .status-icon.--has-errors div:nth-child(2) {
+.TextInput > .field-details > .status-icon.--has-errors div:nth-child(2) {
   transform: translate(.65rem, .75rem) rotate(-45deg)
 }
 
 /* @variant */
-.text-input > .field-details > .status-icon.--has-no-errors {
+.TextInput > .field-details > .status-icon.--has-no-errors {
   background-color: var(--color-green);
 }
 
-.text-input > .field-details > .status-icon.--has-no-errors div:nth-child(1) {
+.TextInput > .field-details > .status-icon.--has-no-errors div:nth-child(1) {
   width: calc(var(--icon-line-width) / 2);
   transform: translate(.6rem, 1.2rem) rotate(45deg);
 }
 
-.text-input > .field-details > .status-icon.--has-no-errors div:nth-child(2) {
+.TextInput > .field-details > .status-icon.--has-no-errors div:nth-child(2) {
   transform: translate(.8rem, .75rem) rotate(-45deg);
 }
 
 /* @component */
-.text-input > .field-container {
+.TextInput > .field-container {
   height: 4.8rem;
   margin-top: .6rem;
 }
 
-.text-input > .field-container > .input-field {
+.TextInput > .field-container > .input-field {
   width: 100%;
   height: 100%;
 
@@ -102,7 +102,7 @@
   padding: 1.8rem;
 }
 
-.text-input > .field-container > .input-field:focus {
+.TextInput > .field-container > .input-field:focus {
   background: #fff;
   border: 1px solid var(--color-input-field-background);
   border-bottom: 1px solid var(--color-secondary);

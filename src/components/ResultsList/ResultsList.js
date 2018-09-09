@@ -6,7 +6,7 @@ import MatchTags from '../MatchTags';
 import './ResultsList.styles.css';
 
 const ResultsList = () => (
-  <div className='results-list'>
+  <div className='ResultsList'>
     <div className='title-container'>
       {/* TODO: use props. */}
       <p className='title'>Segunda-feira, 4 de junho de 2018</p>

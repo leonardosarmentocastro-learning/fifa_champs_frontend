@@ -5,7 +5,7 @@
 1. Refactor:
   <!-- * Turn `index.js` files into barrels that exports the actual component (the component should be named as `ActionButton` not `action-button`) -->
   <!-- * The respective style files should replace `index.styles.css` to `ActionButton.styles.css` -->
-  * The style main class should be the component name, e.g.: `.ActionButton` instead of `.action-button`
+  <!-- * The style main class should be the component name, e.g.: `.ActionButton` instead of `.action-button` -->
 2. Sign up page
   * form:
     * email address

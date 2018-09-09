@@ -6,7 +6,7 @@ import './NavigationSelection.styles.css';
 export class NavigationSelection extends Component {
   render() {
     return (
-      <div className='navigation-selection'>
+      <div className='NavigationSelection'>
         <ul className='menu-items'>
           {this.props.menuItems.map((MenuItemComponent, index) => (
             <Fragment key={index}>

@@ -1,10 +1,10 @@
-.match-details {
+.MatchDetails {
   display: grid;
   grid-template-columns: 1fr 6rem 1fr;
   grid-template-rows: 6rem;
 }
 
-.match-details > .container {
+.MatchDetails > .container {
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -15,15 +15,15 @@
   padding: 1.2rem;
 }
 
-.match-details > .container > .player {
+.MatchDetails > .container > .player {
   font-size: 1.2rem;
 }
 
-.match-details > .home-players {
+.MatchDetails > .home-players {
   justify-self: flex-end;
 }
 
-.match-details > .score {
+.MatchDetails > .score {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './SectionDivider.styles.css';
 
 const SectionDivider = ({ text }) => (
-  <li className='item section-divider'>
+  <li className='SectionDivider item'>
     <p className='text'>{ text }</p>
   </li>
 );

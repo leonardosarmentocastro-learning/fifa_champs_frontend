@@ -10,7 +10,7 @@ const ActionButton = ({
   text,
   tweaks,
 }) => (
-  <div className={`action-button ${'--color-' + colorName}`}
+  <div className={`ActionButton ${'--color-' + colorName}`}
     onClick={onClick}
   >
     <div className='text-area'>

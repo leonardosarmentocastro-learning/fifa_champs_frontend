@@ -1,8 +1,8 @@
-.navigation-selection .section-divider {
+.NavigationSelection .SectionDivider {
   background-color: var(--color-ice);
 }
 
-.navigation-selection .section-divider > .text {
+.NavigationSelection .SectionDivider > .text {
   color: var(--color-dark);
   font-size: 1.8rem;
   font-family: 'dinpro-condensed-bold';

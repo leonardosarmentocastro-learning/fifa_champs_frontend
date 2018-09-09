@@ -6,7 +6,7 @@ import './SignupPage.styles.css';
 class SignupPage extends Component {
   render() {
     return (
-      <div className='signup-page shared-props-for-page'>
+      <div className='SignupPage shared-props-for-page'>
         <div className='title-container'>
           <p className='title'>Registrar-se</p>
         </div>

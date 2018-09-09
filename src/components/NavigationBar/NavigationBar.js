@@ -6,7 +6,7 @@ import './NavigationBar.styles.css';
 class NavigationBar extends Component {
   render() {
     return (
-      <header className={`navigation-bar
+      <header className={`NavigationBar
         ${this.props.isOpen ? '--menu-is-open' : ''}
       `.trim()}>
         <div className='title'>

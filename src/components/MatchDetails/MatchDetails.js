@@ -3,7 +3,7 @@ import React from 'react';
 import './MatchDetails.styles.css';
 
 const MatchDetails = () => (
-  <div className='match-details'>
+  <div className='MatchDetails'>
     <div className='home-players container'>
       <p className='player'>@rborcat</p>
       <p className='player'>@baiano</p>
