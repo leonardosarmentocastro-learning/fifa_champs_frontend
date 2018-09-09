@@ -6,12 +6,13 @@ import './ActionButton.styles.css';
 const ActionButton = ({
   colorName,
   iconName,
+  // isDisabled, {/* TODO: Add variant for "isDisabled" on "ActionButton" */}
   onClick,
   text,
   tweaks,
 }) => (
   <div className={`ActionButton ${'--color-' + colorName}`}
-    onClick={onClick}
+    onClick={(event) => onClick(event)}
   >
     <div className='text-area'>
       <p className={`text

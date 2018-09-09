@@ -10,12 +10,13 @@
   * Add variant for "isDisabled" on "ActionButton"
   * form:
     * email address
-      * [frontend] validation: can't be empty
-      * [frontend] validation: is valid email? (maybe use "email validator" package)
+      <!-- * [frontend] validation: can't be empty -->
+      <!-- * [frontend] validation: is valid email? (maybe use "email validator" package) -->
       * [backend] validation: is already in use?
     * username
-      * [frontend] validation: can't be empty
-      * [frontend] validation: not more than 16 characters
+      <!-- * [frontend] validation: can't be empty -->
+      <!-- * [frontend] validation: not more than 16 characters -->
+      * raise "maxlength" to 24 characters
       * [backend] validation: is already in use?
     * password
       * [frontend] validation: can't be empty
