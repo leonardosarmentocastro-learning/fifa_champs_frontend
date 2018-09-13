@@ -1,12 +1,7 @@
-.SignupPage {
-  /* TODO: refactor, this variable is already set on "props-for-page". Can we inherit it? */
-  --gutter: 2.4rem;
-}
-
 .SignupPage > .form {
   width: 100%;
 
-  padding: 0 var(--gutter);
+  padding: 0 var(--page-gutter);
 }
 
 .SignupPage > .form > .TextInput:not(:first-of-type) {

@@ -6,6 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import configureShared from '../../shared';
 import NavigationContainer from '../NavigationContainer';
 import ResultsPageContainer from '../ResultsPageContainer';
 import SignupPageContainer from '../SignupPageContainer';
@@ -15,6 +16,10 @@ import '../../shared/styles/props-for-page.css';
 import './App.styles.css';
 
 class App extends Component {
+  componentDidMount() {
+    configureShared.singletons();
+  }
+
   render() {
     return (
         <Router>

@@ -1,13 +1,6 @@
 import isEmail from 'validator/lib/isEmail';
 
 const signupPageValidator = {
-  get constraints() {
-    return {
-      username: {
-        maxlength: 16,
-      },
-    };
-  },
   get ERRORS() {
     return {
       EMAIL_IS_EMPTY: {
@@ -22,9 +15,9 @@ const signupPageValidator = {
       USERNAME_IS_EMPTY: {
         message: 'Não pode ser vazio.',
       },
-      USERNAME_TOO_LONG: {
-        message: `Não deve exceder o limite máximo de ${this.constraints.username.maxlength} caractéres.`,
-      }
+      USERNAME_TOO_LONG: (constraints) => ({
+        message: `Não deve exceder o limite máximo de ${constraints.username.maxlength} caractéres.`,
+      }),
     };
   },
   get NO_ERROR() {
@@ -49,16 +42,16 @@ const signupPageValidator = {
         return this.NO_ERROR;
       },
 
-      username: (username) => {
+      username: (username, constraints) => {
         const isEmpty = !username;
         if (isEmpty) {
           const error = this.ERRORS.USERNAME_IS_EMPTY;
           return error;
         }
 
-        const isUsernameTooLong = (username.length > this.constraints.username.maxlength);
+        const isUsernameTooLong = (username.length > constraints.username.maxlength);
         if (isUsernameTooLong) {
-          const error = this.ERRORS.USERNAME_TOO_LONG;
+          const error = this.ERRORS.USERNAME_TOO_LONG(constraints);
           return error;
         }
 

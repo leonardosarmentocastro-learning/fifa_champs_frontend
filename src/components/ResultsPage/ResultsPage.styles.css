@@ -2,7 +2,7 @@
   width: 100%;
 
   margin-bottom: 6rem;
-  padding: 0 var(--gutter);
+  padding: 0 var(--page-gutter);
 }
 
 .ResultsPage > .action-buttons-container > .ActionButton:not(:last-child) {
