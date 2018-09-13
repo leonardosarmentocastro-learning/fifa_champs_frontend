@@ -3,7 +3,7 @@ import isEmail from 'validator/lib/isEmail';
 const signupPageValidator = {
   get ERRORS() {
     return {
-      EMAIL_IS_EMPTY: {
+      FIELD_IS_EMPTY: {
         message: 'Não pode ser vazio.',
       },
       EMAIL_IS_INVALID: {
@@ -12,8 +12,8 @@ const signupPageValidator = {
       EMAIL_ALREADY_IN_USE: {
         message: 'Este email já está em uso.'
       },
-      USERNAME_IS_EMPTY: {
-        message: 'Não pode ser vazio.',
+      PASSWORD_NOT_STRONG_ENOUGH: {
+        message: 'Senha não é segura o bastante.',
       },
       USERNAME_TOO_LONG: (constraints) => ({
         message: `Não deve exceder o limite máximo de ${constraints.username.maxlength} caractéres.`,
@@ -29,7 +29,7 @@ const signupPageValidator = {
       email: (email) => {
         const isEmpty = !email;
         if (isEmpty) {
-          const error = this.ERRORS.EMAIL_IS_EMPTY;
+          const error = this.ERRORS.FIELD_IS_EMPTY;
           return error;
         }
 
@@ -42,10 +42,28 @@ const signupPageValidator = {
         return this.NO_ERROR;
       },
 
+      password: (password, constraints) => {
+        const isEmpty = !password;
+        if (isEmpty) {
+          const error = this.ERRORS.FIELD_IS_EMPTY;
+          return error;
+        }
+
+        const { stringRegex } = constraints.password;
+        const regex = new RegExp(stringRegex);
+        const isPasswordStrongEnough = regex.test(password);
+        if (!isPasswordStrongEnough) {
+          const error = this.ERRORS.PASSWORD_NOT_STRONG_ENOUGH;
+          return error;
+        }
+
+        return this.NO_ERROR;
+      },
+
       username: (username, constraints) => {
         const isEmpty = !username;
         if (isEmpty) {
-          const error = this.ERRORS.USERNAME_IS_EMPTY;
+          const error = this.ERRORS.FIELD_IS_EMPTY;
           return error;
         }
 

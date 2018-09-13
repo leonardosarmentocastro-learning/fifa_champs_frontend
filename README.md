@@ -16,11 +16,11 @@
     * username
       <!-- * [frontend] validation: can't be empty -->
       <!-- * [frontend] validation: not more than 16 characters -->
-      * raise "maxlength" to 24 characters
+      <!-- * raise "maxlength" to 24 characters -->
       * [backend] validation: is already in use?
     * password
-      * [frontend] validation: can't be empty
-      * [frontend] validation: not strong enough (show a check for each one validate checks)
+      <!-- * [frontend] validation: can't be empty -->
+      <!-- * [frontend] validation: not strong enough (show a check for each one validate checks) -->
   * after completed successfully
     * get token on "Authorization" header
     * fire the Authentication process (redux)

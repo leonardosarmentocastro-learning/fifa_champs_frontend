@@ -33,14 +33,6 @@ class SignupPage extends Component {
     },
   };
 
-  setConfirmPassword = (event) => {
-    console.log('event.target.value', event.target.value);
-  }
-
-  setPassword = (event) => {
-    console.log('event.target.value', event.target.value);
-  }
-
   setValueToField = (field) => (event) => {
     const { value } = event.target;
     const isPristine = false;
@@ -103,7 +95,7 @@ class SignupPage extends Component {
               isPristine={this.state.password.isPristine}
               label='Senha'
               note={this.props.constraints ? this.props.constraints.password.rules : ''}
-              onChange={() => null} // TODO
+              onChange={this.setValueToField('password')}
               type='password'
               value={this.state.password.value}
             />
@@ -113,7 +105,7 @@ class SignupPage extends Component {
               isRequired={true}
               isPristine={this.state.confirmPassword.isPristine}
               label='Confirmar senha'
-              onChange={this.setConfirmPassword} // TODO
+              onChange={this.setValueToField('confirmPassword')} // TODO
               type='password'
               value={this.state.confirmPassword.value}
             />
@@ -134,6 +126,7 @@ SignupPage.propTypes = {
   constraints: PropTypes.shape({
     password: PropTypes.shape({
       rules: PropTypes.string.isRequired,
+      stringRegex: PropTypes.string.isRequired,
     }),
     username: PropTypes.shape({
       maxlength: PropTypes.number.isRequired,
