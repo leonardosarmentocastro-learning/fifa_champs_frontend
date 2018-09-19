@@ -1,77 +1,69 @@
 import isEmail from 'validator/lib/isEmail';
 
 const signupPageValidator = {
-  get ERRORS() {
-    return {
-      FIELD_IS_EMPTY: {
-        message: 'Não pode ser vazio.',
-      },
-      EMAIL_IS_INVALID: {
-        message: 'Formato inválido.',
-      },
-      EMAIL_ALREADY_IN_USE: {
-        message: 'Este email já está em uso.'
-      },
-      PASSWORD_NOT_STRONG_ENOUGH: {
-        message: 'Senha não é segura o bastante.',
-      },
-      USERNAME_TOO_LONG: (constraints) => ({
-        message: `Não deve exceder o limite máximo de ${constraints.username.maxlength} caractéres.`,
-      }),
-    };
+  ERRORS: {
+    FIELD_IS_EMPTY: {
+      message: 'Não pode ser vazio.',
+    },
+    EMAIL_IS_INVALID: {
+      message: 'Formato inválido.',
+    },
+    EMAIL_ALREADY_IN_USE: {
+      message: 'Este email já está em uso.'
+    },
+    PASSWORD_AND_CONFIRM_PASSWORD_DONT_MATCH: {
+      message: 'As senhas não coincidem.',
+    },
+    PASSWORD_NOT_STRONG_ENOUGH: {
+      message: 'Senha não é segura o bastante.',
+    },
+    USERNAME_TOO_LONG: (constraints) => ({
+      message: `Não deve exceder o limite máximo de ${constraints.username.maxlength} caractéres.`,
+    }),
   },
-  get NO_ERROR() {
-    return { message: null };
-  },
+  NO_ERROR: { message: null },
 
   get validate() {
     return {
+      confirmPassword: (confirmPassword, constraints, others) => {
+        const isEmpty = !confirmPassword;
+        if (isEmpty) return this.ERRORS.FIELD_IS_EMPTY;
+
+        const { password } = others;
+        const doesPasswordsMatch = (password && (confirmPassword === password.value));
+        if (!doesPasswordsMatch) return this.ERRORS.PASSWORD_AND_CONFIRM_PASSWORD_DONT_MATCH;
+
+        return this.NO_ERROR;
+      },
+
       email: (email) => {
         const isEmpty = !email;
-        if (isEmpty) {
-          const error = this.ERRORS.FIELD_IS_EMPTY;
-          return error;
-        }
+        if (isEmpty) return this.ERRORS.FIELD_IS_EMPTY;
 
         const isValidEmail = isEmail(email);
-        if (!isValidEmail) {
-          const error = this.ERRORS.EMAIL_IS_INVALID;
-          return error;
-        }
+        if (!isValidEmail) return this.ERRORS.EMAIL_IS_INVALID;
 
         return this.NO_ERROR;
       },
 
       password: (password, constraints) => {
         const isEmpty = !password;
-        if (isEmpty) {
-          const error = this.ERRORS.FIELD_IS_EMPTY;
-          return error;
-        }
+        if (isEmpty) return this.ERRORS.FIELD_IS_EMPTY;
 
         const { stringRegex } = constraints.password;
         const regex = new RegExp(stringRegex);
         const isPasswordStrongEnough = regex.test(password);
-        if (!isPasswordStrongEnough) {
-          const error = this.ERRORS.PASSWORD_NOT_STRONG_ENOUGH;
-          return error;
-        }
+        if (!isPasswordStrongEnough) return this.ERRORS.PASSWORD_NOT_STRONG_ENOUGH;
 
         return this.NO_ERROR;
       },
 
       username: (username, constraints) => {
         const isEmpty = !username;
-        if (isEmpty) {
-          const error = this.ERRORS.FIELD_IS_EMPTY;
-          return error;
-        }
+        if (isEmpty) return this.ERRORS.FIELD_IS_EMPTY;
 
         const isUsernameTooLong = (username.length > constraints.username.maxlength);
-        if (isUsernameTooLong) {
-          const error = this.ERRORS.USERNAME_TOO_LONG(constraints);
-          return error;
-        }
+        if (isUsernameTooLong) return this.ERRORS.USERNAME_TOO_LONG(constraints);
 
         return this.NO_ERROR;
       }

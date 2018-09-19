@@ -3,44 +3,40 @@ import { DateTime } from 'luxon';
 import signupApi from './api';
 
 const signupService = {
-  get LOCAL_STORAGE_KEYS() {
-    return {
-      USERS_CONSTRAINTS: 'USERS_CONSTRAINTS',
-    };
+  LOCAL_STORAGE_KEYS: {
+    USERS_CONSTRAINTS: 'USERS_CONSTRAINTS',
   },
-  get getFromLocalStorage() {
-    const getStringifiedJsonAsObject = (key) => JSON.parse(window.localStorage.getItem(key));
-    return {
-      usersConstraints: getStringifiedJsonAsObject(this.LOCAL_STORAGE_KEYS.USERS_CONSTRAINTS),
-    };
+  get usersConstraints() {
+    const key = this.LOCAL_STORAGE_KEYS.USERS_CONSTRAINTS;
+    const value = window.localStorage.getItem(key);
+    return JSON.parse(value);
+  },
+  set usersConstraints(constraints) {
+    const key = this.LOCAL_STORAGE_KEYS.USERS_CONSTRAINTS;
+    const value = JSON.stringify(constraints);
+    window.localStorage.setItem(key, value);
   },
 
-  // TODO: add tests.
-  async getUsersConstraints() {
-    let constraints = this.getFromLocalStorage.usersConstraints;
+  async fetchUsersConstraints() {
+    const constraints = this.usersConstraints;
+
     const hasConstraintsOnLocalStorage = Boolean(constraints);
     if (!hasConstraintsOnLocalStorage) {
-      constraints = await signupApi.getConstraints();
-      this.usersConstraints = constraints;
-
-      return constraints;
+      return await this.refreshUsersContrainstsOnLocalStorage();
     }
 
     const expirationDate = DateTime.fromISO(constraints.expirationDate).valueOf();
     const now = DateTime.local().valueOf();
     const doesConstraintsNeedsToBeRefreshed = (now >= expirationDate);
     if (doesConstraintsNeedsToBeRefreshed) {
-      constraints = await signupApi.getConstraints();
-      this.usersConstraints = constraints;
-
-      return constraints;
+      return await this.refreshUsersContrainstsOnLocalStorage();
     }
 
     return constraints;
   },
-  set usersConstraints(constraints) {
-    const value = JSON.stringify(constraints);
-    window.localStorage.setItem(this.LOCAL_STORAGE_KEYS.USERS_CONSTRAINTS, value);
+  async refreshUsersContrainstsOnLocalStorage() {
+    this.usersConstraints = await signupApi.getConstraints();
+    return this.usersConstraints;
   },
 };
 

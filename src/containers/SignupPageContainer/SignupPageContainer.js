@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import signupService from './service';
 import signupPageValidator from './validator';
 import SignupPage from '../../components/SignupPage';
 
@@ -11,7 +11,7 @@ class SignupPageContainer extends Component {
   };
 
   async componentDidMount() {
-    const constraints = await signupService.getUsersConstraints();
+    const constraints = await this.props.signupService.fetchUsersConstraints();
     this.setState({ constraints, isLoading: false });
   }
 
@@ -25,5 +25,11 @@ class SignupPageContainer extends Component {
     );
   }
 }
+
+SignupPageContainer.propTypes = {
+  signupService: PropTypes.shape({
+    fetchUsersConstraints: PropTypes.func.isRequired,
+  }),
+};
 
 export default SignupPageContainer;

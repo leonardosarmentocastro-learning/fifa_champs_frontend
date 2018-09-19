@@ -7,33 +7,30 @@ import TextInput from '../TextInput';
 import './SignupPage.styles.css';
 
 class SignupPage extends Component {
-  state = {
-    confirmPassword: {
-      error: '',
-      isPristine: true,
-      value: '',
-    },
-    email: {
-      error: '',
-      isPristine: true,
-      value: '',
-    },
-    form: {
-      isSubmitting: false,
-    },
-    password: {
-      error: '',
-      isPristine: true,
-      value: '',
-    },
-    username: {
+  DEFAULT = {
+    STATE_FOR_FIELD: {
       error: '',
       isPristine: true,
       value: '',
     },
   };
+  state = {
+    confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
+    email: this.DEFAULT.STATE_FOR_FIELD,
+    form: {
+      isSubmitting: false,
+    },
+    password: this.DEFAULT.STATE_FOR_FIELD,
+    username: this.DEFAULT.STATE_FOR_FIELD,
+  };
 
-  setValueToField = (field) => (event) => {
+  resetConfirmPassword = () => {
+    this.setState({
+      confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
+    });
+  }
+
+  setValueToField = (field, others) => (event) => {
     const { value } = event.target;
     const isPristine = false;
 
@@ -45,13 +42,13 @@ class SignupPage extends Component {
       },
     }), () => {
       const { constraints } = this.props;
-      const error = this.props.validator.validate[field](value, constraints);
+      const error = this.props.validator.validate[field](value, constraints, others);
       this.setState(prevState => ({
         [field]: {
           ...prevState[field],
           error: error.message,
         },
-      }));
+      }), others.callback);
     });
   }
 
@@ -95,7 +92,7 @@ class SignupPage extends Component {
               isPristine={this.state.password.isPristine}
               label='Senha'
               note={this.props.constraints ? this.props.constraints.password.rules : ''}
-              onChange={this.setValueToField('password')}
+              onChange={this.setValueToField('password', { callback: this.resetConfirmPassword })}
               type='password'
               value={this.state.password.value}
             />
@@ -105,7 +102,7 @@ class SignupPage extends Component {
               isRequired={true}
               isPristine={this.state.confirmPassword.isPristine}
               label='Confirmar senha'
-              onChange={this.setValueToField('confirmPassword')} // TODO
+              onChange={this.setValueToField('confirmPassword', { password: { ...this.state.password } })}
               type='password'
               value={this.state.confirmPassword.value}
             />
@@ -136,6 +133,7 @@ SignupPage.propTypes = {
   validator: PropTypes.shape({
     validate: PropTypes.shape({
       email: PropTypes.func.isRequired,
+      password: PropTypes.func.isRequired,
       username: PropTypes.func.isRequired,
     })
   }),
