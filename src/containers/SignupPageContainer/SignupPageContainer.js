@@ -1,35 +1,20 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-import signupPageValidator from './validator';
+import signupAPI from './api';
 import SignupPage from '../../components/SignupPage';
+import signupService from './service';
+import signupValidator from './validator';
 
 class SignupPageContainer extends Component {
-  state = {
-    constraints: null,
-    isLoading: true,
-  };
-
-  async componentDidMount() {
-    const constraints = await this.props.signupService.fetchUsersConstraints();
-    this.setState({ constraints, isLoading: false });
-  }
-
   render() {
     return (
       <SignupPage
-        constraints={this.state.constraints}
-        isLoading={this.state.isLoading}
-        validator={signupPageValidator}
+        API={signupAPI}
+        service={signupService}
+        validator={signupValidator}
       />
     );
   }
 }
-
-SignupPageContainer.propTypes = {
-  signupService: PropTypes.shape({
-    fetchUsersConstraints: PropTypes.func.isRequired,
-  }),
-};
 
 export default SignupPageContainer;

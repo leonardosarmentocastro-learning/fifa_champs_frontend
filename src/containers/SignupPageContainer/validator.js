@@ -1,6 +1,6 @@
 import isEmail from 'validator/lib/isEmail';
 
-const signupPageValidator = {
+const signupValidator = {
   ERRORS: {
     FIELD_IS_EMPTY: {
       message: 'Não pode ser vazio.',
@@ -16,6 +16,12 @@ const signupPageValidator = {
     },
     PASSWORD_NOT_STRONG_ENOUGH: {
       message: 'Senha não é segura o bastante.',
+    },
+    USERNAME_ALREADY_IN_USE: {
+      message: 'O nome escolhido já está em uso.',
+    },
+    UNMAPPED_ERROR: {
+      message: 'Ocorreu um erro inesperado. Por favor, Tente novamente.',
     },
     USERNAME_TOO_LONG: (constraints) => ({
       message: `Não deve exceder o limite máximo de ${constraints.username.maxlength} caractéres.`,
@@ -71,4 +77,4 @@ const signupPageValidator = {
   },
 };
 
-export default signupPageValidator;
+export default signupValidator;

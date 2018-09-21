@@ -9,7 +9,7 @@ import {
 import configureShared from '../../shared';
 import NavigationContainer from '../NavigationContainer';
 import ResultsPageContainer from '../ResultsPageContainer';
-import { signupService, SignupPageContainer } from '../SignupPageContainer';
+import SignupPageContainer from '../SignupPageContainer';
 import '../../shared/styles/font-faces.css';
 import '../../shared/styles/variables.css';
 import '../../shared/styles/props-for-page.css';
@@ -34,9 +34,7 @@ class App extends Component {
 
               <Route
                 exact path={'/sign_up'}
-                render={() => <SignupPageContainer
-                  signupService={signupService}
-                />}
+                render={() => <SignupPageContainer />}
               />
 
               <Route

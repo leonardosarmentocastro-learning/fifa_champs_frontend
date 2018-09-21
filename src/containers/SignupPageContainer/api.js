@@ -17,6 +17,18 @@ const signupAPI = {
     const { data: constraints } = response;
 
     return constraints;
+  },
+
+  async signup(user) {
+    const response = await this.API.post('/sign-up', user)
+      .catch(error => {
+        const err = error.response.data; // Refers to the response body.
+        throw err;
+      });
+
+    const { headers } = response;
+    const token = headers.authorization;
+    return token;
   }
 };
 

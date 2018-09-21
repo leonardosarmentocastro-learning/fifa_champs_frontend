@@ -11,18 +11,59 @@ class SignupPage extends Component {
     STATE_FOR_FIELD: {
       error: '',
       isPristine: true,
+      isRequired: true,
       value: '',
     },
   };
   state = {
     confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
+    constraints: null,
     email: this.DEFAULT.STATE_FOR_FIELD,
-    form: {
-      isSubmitting: false,
+    page: {
+      error: '',
+      isLoading: true,
     },
     password: this.DEFAULT.STATE_FOR_FIELD,
     username: this.DEFAULT.STATE_FOR_FIELD,
   };
+
+  get form() {
+    return {
+      // Returns an array where each item corresponds to a form field key.
+      fields: () => Object.keys(this.state)
+        .filter(key => (key !== 'page' && key !== 'constraints')),
+      hasErrors: () => {
+        return this.form.fields()
+          .some(key => {
+            const field = this.state[key];
+            return (
+              (field.isRequired && field.isPristine) ||
+              (field.isRequired && !field.isPristine && !!field.error)
+            );
+          });
+      },
+    }
+  }
+
+  get user() {
+    const { email, password, username } = this.state;
+    return {
+      email: email.value,
+      password: password.value,
+      username: username.value,
+    };
+  }
+
+  componentDidMount = async () => {
+    // TODO: UI for unmapped page error.
+    const constraints = await this.props.service.fetchUsersConstraints();
+    const isLoading = false;
+
+    this.setState(prevState => ({
+      constraints,
+      page: { ...prevState.page, isLoading },
+    }));
+  }
 
   resetConfirmPassword = () => {
     this.setState({
@@ -30,7 +71,7 @@ class SignupPage extends Component {
     });
   }
 
-  setValueToField = (field, others) => (event) => {
+  setValueToField = (field, others = {}) => (event) => {
     const { value } = event.target;
     const isPristine = false;
 
@@ -41,7 +82,7 @@ class SignupPage extends Component {
         value,
       },
     }), () => {
-      const { constraints } = this.props;
+      const { constraints } = this.state;
       const error = this.props.validator.validate[field](value, constraints, others);
       this.setState(prevState => ({
         [field]: {
@@ -49,6 +90,38 @@ class SignupPage extends Component {
           error: error.message,
         },
       }), others.callback);
+    });
+  }
+
+  submit = () => {
+    const isLoading = true;
+    this.setState(prevState => ({
+      page: { ...prevState.page, isLoading },
+    }), async () => {
+      try {
+        const token = await this.props.API.signup(this.user);
+        // TODO: Fire authentication process.
+        // this.props.service.authenticate(token);
+
+      } catch(err) {
+        console.log('### err', err);
+        const { ERRORS } = this.props.validator;
+
+        let { code, field } = err;
+        let error = ERRORS[code];
+        if (!error) {
+          // TODO: UI for unmapped page error.
+          error = ERRORS.UNMAPPED_ERROR;
+          field = 'page';
+        }
+
+        this.setState(prevState => ({
+          [field]: {
+            ...prevState[field],
+            error: error.message,
+          },
+        }));
+      }
     });
   }
 
@@ -67,7 +140,7 @@ class SignupPage extends Component {
           <form className='form'>
             <TextInput
               error={this.state.email.error}
-              isRequired={true}
+              isRequired={this.state.email.isRequired}
               isPristine={this.state.email.isPristine}
               label='Email'
               onChange={this.setValueToField('email')}
@@ -77,10 +150,10 @@ class SignupPage extends Component {
 
             <TextInput
               error={this.state.username.error}
-              isRequired={true}
+              isRequired={this.state.username.isRequired}
               isPristine={this.state.username.isPristine}
               label='Username'
-              note={this.props.constraints ? `Máximo de ${this.props.constraints.username.maxlength} caractéres`: ''}
+              note={this.state.constraints ? `Máximo de ${this.state.constraints.username.maxlength} caractéres`: ''}
               onChange={this.setValueToField('username')}
               placeholder='@rborcat'
               value={this.state.username.value}
@@ -88,10 +161,10 @@ class SignupPage extends Component {
 
             <TextInput
               error={this.state.password.error}
-              isRequired={true}
+              isRequired={this.state.password.isRequired}
               isPristine={this.state.password.isPristine}
               label='Senha'
-              note={this.props.constraints ? this.props.constraints.password.rules : ''}
+              note={this.state.constraints ? this.state.constraints.password.rules : ''}
               onChange={this.setValueToField('password', { callback: this.resetConfirmPassword })}
               type='password'
               value={this.state.password.value}
@@ -99,7 +172,7 @@ class SignupPage extends Component {
 
             <TextInput
               error={this.state.confirmPassword.error}
-              isRequired={true}
+              isRequired={this.state.confirmPassword.isRequired}
               isPristine={this.state.confirmPassword.isPristine}
               label='Confirmar senha'
               onChange={this.setValueToField('confirmPassword', { password: { ...this.state.password } })}
@@ -107,9 +180,10 @@ class SignupPage extends Component {
               value={this.state.confirmPassword.value}
             />
 
-            {/* TODO: Add variant for "isDisabled" on "ActionButton" */}
             <ActionButton
               colorName='hotpink'
+              isDisabled={this.form.hasErrors()}
+              onClick={this.submit}
               text='Continuar'
             />
           </form>
@@ -120,18 +194,27 @@ class SignupPage extends Component {
 }
 
 SignupPage.propTypes = {
-  constraints: PropTypes.shape({
-    password: PropTypes.shape({
-      rules: PropTypes.string.isRequired,
-      stringRegex: PropTypes.string.isRequired,
-    }),
-    username: PropTypes.shape({
-      maxlength: PropTypes.number.isRequired,
-    }),
+  API: PropTypes.shape({
+    signup: PropTypes.func.isRequired,
   }),
-  isLoading: PropTypes.bool.isRequired,
+  service: PropTypes.shape({
+    authenticate: PropTypes.func.isRequired, // TODO: Fire authentication process.
+    fetchUsersConstraints: PropTypes.func.isRequired,
+  }),
   validator: PropTypes.shape({
+    ERRORS: PropTypes.shape({
+      EMAIL_ALREADY_IN_USE: PropTypes.shape({
+        message: PropTypes.string.isRequired,
+      }).isRequired,
+      UNMAPPED_ERROR: PropTypes.shape({
+        message: PropTypes.string.isRequired,
+      }).isRequired,
+      USERNAME_ALREADY_IN_USE: PropTypes.shape({
+        message: PropTypes.string.isRequired,
+      }).isRequired,
+    }),
     validate: PropTypes.shape({
+      confirmPassword: PropTypes.func.isRequired,
       email: PropTypes.func.isRequired,
       password: PropTypes.func.isRequired,
       username: PropTypes.func.isRequired,

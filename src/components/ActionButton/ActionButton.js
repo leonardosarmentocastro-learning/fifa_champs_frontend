@@ -6,13 +6,20 @@ import './ActionButton.styles.css';
 const ActionButton = ({
   colorName,
   iconName,
-  // isDisabled, {/* TODO: Add variant for "isDisabled" on "ActionButton" */}
+  isDisabled,
   onClick,
   text,
   tweaks,
 }) => (
-  <div className={`ActionButton ${'--color-' + colorName}`}
-    onClick={(event) => onClick(event)}
+  <div
+    className={`ActionButton
+      ${'--color-' + colorName}
+      ${isDisabled ? '--is-disabled' : ''}
+    `.trim()}
+    onClick={(event) => {
+      if (isDisabled) return event.preventDefault();
+      onClick(event);
+    }}
   >
     <div className='text-area'>
       <p className={`text
@@ -46,7 +53,6 @@ ActionButton.propTypes = {
 
 ActionButton.defaultProps = {
   colorName: COLOR_NAMES[0],
-  onClick: () => console.warn('[component] ActionButton: "onClick" event prop not set.'),
   text: '',
   tweaks: {
     isTextUnderlined: false,

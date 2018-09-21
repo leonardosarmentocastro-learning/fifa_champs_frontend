@@ -1,7 +1,8 @@
 .ActionButton {
   --color-button-dark: var(--color-dark);
-  --color-button-hotpink: #fd0168;
+  --color-button-hotpink: var(--color-secondary-as-rgb);
   --faded-area-width: 4.8rem;
+  --transparency-button: .2;
 
   display: grid;
   grid-template-columns: 1fr var(--faded-area-width);
@@ -48,9 +49,15 @@
 .ActionButton.--color-dark {
   background-color: var(--color-button-dark);
 }
+.ActionButton.--color-dark.--is-disabled {
+  background-color: rgba(var(--color-button-dark), var(--transparency-button));
+}
 
 .ActionButton.--color-hotpink {
-  background-color: var(--color-button-hotpink);
+  background-color: rgb(var(--color-button-hotpink));
+}
+.ActionButton.--color-hotpink.--is-disabled {
+  background-color: rgba(var(--color-button-hotpink), var(--transparency-button));
 }
 
 .ActionButton > .faded-area > .icon.--icon-add {
