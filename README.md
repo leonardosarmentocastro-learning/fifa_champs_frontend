@@ -7,22 +7,23 @@
   <!-- * The respective style files should replace `index.styles.css` to `ActionButton.styles.css` -->
   <!-- * The style main class should be the component name, e.g.: `.ActionButton` instead of `.action-button` -->
 2. Sign up page
-  * Add variant for "isDisabled" on "ActionButton"
+  <!-- * Add variant for "isDisabled" on "ActionButton" -->
+  * "an error has occured" page state
   * form:
     * email address
       <!-- * [frontend] validation: can't be empty -->
       <!-- * [frontend] validation: is valid email? (maybe use "email validator" package) -->
-      * [backend] validation: is already in use?
+      <!-- * [backend] validation: is already in use? -->
     * username
       <!-- * [frontend] validation: can't be empty -->
       <!-- * [frontend] validation: not more than 16 characters -->
       <!-- * raise "maxlength" to 24 characters -->
-      * [backend] validation: is already in use?
+      <!-- * [backend] validation: is already in use? -->
     * password
       <!-- * [frontend] validation: can't be empty -->
       <!-- * [frontend] validation: not strong enough (show a check for each one validate checks) -->
   * after completed successfully
-    * get token on "Authorization" header
+    <!-- * get token on "Authorization" header -->
     * fire the Authentication process (redux)
       * [search] how to and what to test?
     * show success page (to be defined - look at the "Premier league" website)

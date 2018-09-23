@@ -32,6 +32,7 @@ class SignupPage extends Component {
       // Returns an array where each item corresponds to a form field key.
       fields: () => Object.keys(this.state)
         .filter(key => (key !== 'page' && key !== 'constraints')),
+
       hasErrors: () => {
         return this.form.fields()
           .some(key => {
@@ -71,6 +72,15 @@ class SignupPage extends Component {
     });
   }
 
+  setErrorToField = (field, error, others = {}) => {
+    this.setState(prevState => ({
+      [field]: {
+        ...prevState[field],
+        error: error.message,
+      },
+    }), others.callback);
+  }
+
   setValueToField = (field, others = {}) => (event) => {
     const { value } = event.target;
     const isPristine = false;
@@ -84,12 +94,7 @@ class SignupPage extends Component {
     }), () => {
       const { constraints } = this.state;
       const error = this.props.validator.validate[field](value, constraints, others);
-      this.setState(prevState => ({
-        [field]: {
-          ...prevState[field],
-          error: error.message,
-        },
-      }), others.callback);
+      this.setErrorToField(field, error, others);
     });
   }
 
@@ -100,11 +105,9 @@ class SignupPage extends Component {
     }), async () => {
       try {
         const token = await this.props.API.signup(this.user);
-        // TODO: Fire authentication process.
-        // this.props.service.authenticate(token);
+        // this.props.service.authenticate(token); // TODO: Fire authentication process.
 
       } catch(err) {
-        console.log('### err', err);
         const { ERRORS } = this.props.validator;
 
         let { code, field } = err;
@@ -115,12 +118,7 @@ class SignupPage extends Component {
           field = 'page';
         }
 
-        this.setState(prevState => ({
-          [field]: {
-            ...prevState[field],
-            error: error.message,
-          },
-        }));
+        this.setErrorToField(field, error);
       }
     });
   }
