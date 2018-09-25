@@ -22,6 +22,7 @@ class SignupPage extends Component {
     page: {
       error: '',
       isLoading: true,
+      isSubmitting: false,
     },
     password: this.DEFAULT.STATE_FOR_FIELD,
     username: this.DEFAULT.STATE_FOR_FIELD,
@@ -62,14 +63,21 @@ class SignupPage extends Component {
 
     this.setState(prevState => ({
       constraints,
-      page: { ...prevState.page, isLoading },
+      page: {
+        ...prevState.page,
+        isLoading
+      },
     }));
   }
 
   resetConfirmPassword = () => {
-    this.setState({
-      confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
-    });
+    const { password, confirmPassword } = this.state;
+    const doesPasswordsMatch = (password.value === confirmPassword.value);
+    if (!doesPasswordsMatch) {
+      this.setState({
+        confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
+      });
+    }
   }
 
   setErrorToField = (field, error, others = {}) => {
@@ -77,34 +85,32 @@ class SignupPage extends Component {
       [field]: {
         ...prevState[field],
         error: error.message,
+        isPristine: false,
       },
     }), others.callback);
   }
 
-  setValueToField = (field, others = {}) => (event) => {
+  setValueToField = (field) => (event) => {
     const { value } = event.target;
-    const isPristine = false;
-
     this.setState(prevState => ({
       [field]: {
         ...prevState[field],
-        isPristine,
         value,
       },
-    }), () => {
-      const { constraints } = this.state;
-      const error = this.props.validator.validate[field](value, constraints, others);
-      this.setErrorToField(field, error, others);
-    });
+    }));
   }
 
   submit = () => {
-    const isLoading = true;
+    const isSubmitting = true;
     this.setState(prevState => ({
-      page: { ...prevState.page, isLoading },
+      page: {
+        ...prevState.page,
+        isSubmitting,
+      },
     }), async () => {
       try {
         const token = await this.props.API.signup(this.user);
+        console.log('### TODO: FIRE AUTHENTICATION PROCESS.', token);
         // this.props.service.authenticate(token); // TODO: Fire authentication process.
 
       } catch(err) {
@@ -123,10 +129,20 @@ class SignupPage extends Component {
     });
   }
 
+  validateField = (field, others = {}) => (event) => {
+    const {
+      constraints,
+      [field]: { value },
+    } = this.state;
+
+    const error = this.props.validator.validate[field](value, constraints, others);
+    this.setErrorToField(field, error, others);
+  }
+
   render() {
     return (
       <Fragment>
-        {this.props.isLoading &&
+        {this.state.page.isLoading &&
           <LoadingPageContent />
         }
 
@@ -142,6 +158,7 @@ class SignupPage extends Component {
               isPristine={this.state.email.isPristine}
               label='Email'
               onChange={this.setValueToField('email')}
+              onBlur={this.validateField('email')}
               placeholder='cr7@adidas.com'
               value={this.state.email.value}
             />
@@ -153,6 +170,7 @@ class SignupPage extends Component {
               label='Username'
               note={this.state.constraints ? `Máximo de ${this.state.constraints.username.maxlength} caractéres`: ''}
               onChange={this.setValueToField('username')}
+              onBlur={this.validateField('username')}
               placeholder='@rborcat'
               value={this.state.username.value}
             />
@@ -163,7 +181,8 @@ class SignupPage extends Component {
               isPristine={this.state.password.isPristine}
               label='Senha'
               note={this.state.constraints ? this.state.constraints.password.rules : ''}
-              onChange={this.setValueToField('password', { callback: this.resetConfirmPassword })}
+              onChange={this.setValueToField('password')}
+              onBlur={this.validateField('password', { callback: this.resetConfirmPassword })}
               type='password'
               value={this.state.password.value}
             />
@@ -173,7 +192,8 @@ class SignupPage extends Component {
               isRequired={this.state.confirmPassword.isRequired}
               isPristine={this.state.confirmPassword.isPristine}
               label='Confirmar senha'
-              onChange={this.setValueToField('confirmPassword', { password: { ...this.state.password } })}
+              onChange={this.setValueToField('confirmPassword')}
+              onBlur={this.validateField('confirmPassword', { password: { ...this.state.password } })}
               type='password'
               value={this.state.confirmPassword.value}
             />
@@ -181,6 +201,7 @@ class SignupPage extends Component {
             <ActionButton
               colorName='hotpink'
               isDisabled={this.form.hasErrors()}
+              isLoading={this.state.page.isSubmitting}
               onClick={this.submit}
               text='Continuar'
             />

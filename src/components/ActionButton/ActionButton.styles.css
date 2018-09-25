@@ -52,12 +52,18 @@
 .ActionButton.--color-dark.--is-disabled {
   background-color: rgba(var(--color-button-dark), var(--transparency-button));
 }
+.ActionButton.--color-dark.--is-disabled.--is-loading {
+  background-color: var(--color-button-dark);
+}
 
 .ActionButton.--color-hotpink {
   background-color: rgb(var(--color-button-hotpink));
 }
 .ActionButton.--color-hotpink.--is-disabled {
   background-color: rgba(var(--color-button-hotpink), var(--transparency-button));
+}
+.ActionButton.--color-hotpink.--is-disabled.--is-loading {
+  background-color: rgb(var(--color-button-hotpink));
 }
 
 .ActionButton > .faded-area > .icon.--icon-add {

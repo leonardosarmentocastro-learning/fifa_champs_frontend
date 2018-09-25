@@ -14,6 +14,7 @@ const TextInput = ({
   label,
   note,
   onChange,
+  onBlur,
   placeholder,
   type,
   value,
@@ -33,6 +34,7 @@ const TextInput = ({
       <input
         className='input-field'
         onChange={(event) => onChange(event)}
+        onBlur={(event) => onBlur(event)}
         placeholder={placeholder}
         type={type}
         value={value}
@@ -44,10 +46,12 @@ const TextInput = ({
 
 TextInput.propTypes = {
   error: PropTypes.string,
+  isPristine: PropTypes.bool,
   isRequired: PropTypes.bool,
   label: PropTypes.string.isRequired,
   note: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.any.isRequired,

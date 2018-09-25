@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import LoadingSpinner from './LoadingSpinner';
 import './ActionButton.styles.css';
 
 const ActionButton = ({
   colorName,
   iconName,
   isDisabled,
+  isLoading,
   onClick,
   text,
   tweaks,
@@ -15,6 +17,7 @@ const ActionButton = ({
     className={`ActionButton
       ${'--color-' + colorName}
       ${isDisabled ? '--is-disabled' : ''}
+      ${isLoading ? '--is-loading' : ''}
     `.trim()}
     onClick={(event) => {
       if (isDisabled) return event.preventDefault();
@@ -22,12 +25,18 @@ const ActionButton = ({
     }}
   >
     <div className='text-area'>
-      <p className={`text
-        ${tweaks.isTextUnderlined ? '--is-underlined' : ''}
-      `.trim()}
-      >
-        {text}
-      </p>
+      {isLoading &&
+        <LoadingSpinner />
+      }
+
+      {!isLoading &&
+        <p className={`text
+          ${tweaks.isTextUnderlined ? '--is-underlined' : ''}
+        `.trim()}
+        >
+          {text}
+        </p>
+      }
     </div>
 
     {iconName &&
@@ -44,6 +53,8 @@ const ICON_NAMES = ['add', 'arrow-down'];
 ActionButton.propTypes = {
   colorName: PropTypes.oneOf(COLOR_NAMES).isRequired,
   iconName: PropTypes.oneOf(ICON_NAMES),
+  isDisabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
   onClick: PropTypes.func,
   text: PropTypes.string.isRequired,
   tweaks: PropTypes.shape({
