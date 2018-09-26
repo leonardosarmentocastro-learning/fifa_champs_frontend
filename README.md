@@ -61,6 +61,7 @@ neymar gifs
 
 neymar explosão
 https://media.giphy.com/media/d5NQmO0EFYPevpy1dn/giphy.gif
+https://media3.giphy.com/media/d5NQmO0EFYPevpy1dn/giphy-downsized-small.mp4
 
 neymar golaço super sayadin
 https://giphy.com/gifs/super-neymar-saiyan-LLuUv0UWULqQU
@@ -68,9 +69,11 @@ https://media3.giphy.com/media/LLuUv0UWULqQU/giphy-downsized-small.mp4
 
 neymar mad
 https://giphy.com/gifs/fc-barcelona-neymar-jr-56zM89yEGQm6Q
+https://media3.giphy.com/media/56zM89yEGQm6Q/giphy-downsized-small.mp4
 
 marcelo
 https://giphy.com/gifs/soccer-fifa-ey2tRBbjdQy5O
+https://media2.giphy.com/media/ey2tRBbjdQy5O/giphy-downsized-small.mp4
 
 SAMPLE:
 ```html

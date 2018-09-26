@@ -66,6 +66,7 @@ class SignupPage extends Component {
     this.setState(prevState => ({
       page: {
         ...prevState.page,
+        error: '',
         isLoading: true,
       },
     }), async () => {
@@ -134,28 +135,24 @@ class SignupPage extends Component {
     this.setState(prevState => ({
       page: {
         ...prevState.page,
+        error: '',
         isSubmitting: true,
       },
     }), async () => {
       try {
         const token = await this.props.API.signup(this.user);
-
         console.log('### TODO: FIRE AUTHENTICATION PROCESS.', token);
         // this.props.service.authenticate(token); // TODO: Fire authentication process.
-
       } catch(err) {
         const { ERRORS } = this.props.validator;
         const { code, field } = err;
 
         let error = ERRORS[code];
-        if (!error) {
-          const retry = this.submit;
-          error = ERRORS.UNMAPPED_ERROR;
+        if (error) return this.setErrorToField(field, error);
 
-          return this.setErrorToPage(error, retry);
-        }
-
-        this.setErrorToField(field, error);
+        const retry = this.submit;
+        error = ERRORS.UNMAPPED_ERROR;
+        this.setErrorToPage(error, retry);
       }
     });
   }
