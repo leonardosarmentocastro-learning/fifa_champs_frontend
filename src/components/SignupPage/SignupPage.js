@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import ActionButton from '../ActionButton';
+import ErrorPage from '../ErrorPage';
 import LoadingPageContent from '../LoadingPageContent';
 import TextInput from '../TextInput';
 import './SignupPage.styles.css';
@@ -23,6 +24,7 @@ class SignupPage extends Component {
       error: '',
       isLoading: true,
       isSubmitting: false,
+      retry: null,
     },
     password: this.DEFAULT.STATE_FOR_FIELD,
     username: this.DEFAULT.STATE_FOR_FIELD,
@@ -56,18 +58,35 @@ class SignupPage extends Component {
     };
   }
 
-  componentDidMount = async () => {
-    // TODO: UI for unmapped page error.
-    const constraints = await this.props.service.fetchUsersConstraints();
-    const isLoading = false;
+  componentDidMount = () => {
+    this.initialize();
+  }
 
+  initialize = () => {
     this.setState(prevState => ({
-      constraints,
       page: {
         ...prevState.page,
-        isLoading
+        isLoading: true,
       },
-    }));
+    }), async () => {
+      try {
+        const constraints = await this.props.service.fetchUsersConstraints();
+        this.setState(prevState => ({
+          constraints,
+          page: {
+            ...prevState.page,
+            isLoading: false,
+          }
+        }));
+      } catch (err) {
+        const { ERRORS } = this.props.validator;
+        const retry = this.initialize;
+
+        const hasReceivedResponseFromServer = Boolean(err.response);
+        const error = (hasReceivedResponseFromServer ? ERRORS.UNMAPPED_ERROR : ERRORS.SERVER_NOT_REACHABLE);
+        this.setErrorToPage(error, retry);
+      }
+    });
   }
 
   resetConfirmPassword = () => {
@@ -90,6 +109,17 @@ class SignupPage extends Component {
     }), others.callback);
   }
 
+  setErrorToPage = (error, retry) => {
+    this.setState({
+      page: {
+        error: error.message,
+        isLoading: false,
+        isSubmitting: false,
+        retry,
+      },
+    });
+  }
+
   setValueToField = (field) => (event) => {
     const { value } = event.target;
     this.setState(prevState => ({
@@ -101,27 +131,28 @@ class SignupPage extends Component {
   }
 
   submit = () => {
-    const isSubmitting = true;
     this.setState(prevState => ({
       page: {
         ...prevState.page,
-        isSubmitting,
+        isSubmitting: true,
       },
     }), async () => {
       try {
         const token = await this.props.API.signup(this.user);
+
         console.log('### TODO: FIRE AUTHENTICATION PROCESS.', token);
         // this.props.service.authenticate(token); // TODO: Fire authentication process.
 
       } catch(err) {
         const { ERRORS } = this.props.validator;
+        const { code, field } = err;
 
-        let { code, field } = err;
         let error = ERRORS[code];
         if (!error) {
-          // TODO: UI for unmapped page error.
+          const retry = this.submit;
           error = ERRORS.UNMAPPED_ERROR;
-          field = 'page';
+
+          return this.setErrorToPage(error, retry);
         }
 
         this.setErrorToField(field, error);
@@ -144,6 +175,13 @@ class SignupPage extends Component {
       <Fragment>
         {this.state.page.isLoading &&
           <LoadingPageContent />
+        }
+
+        {!!this.state.page.error &&
+          <ErrorPage
+            error={this.state.page.error}
+            retry={this.state.page.retry}
+          />
         }
 
         <div className='SignupPage shared-props-for-page'>

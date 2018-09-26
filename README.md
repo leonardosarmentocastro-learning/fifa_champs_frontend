@@ -10,16 +10,16 @@
   <!-- * Add variant for "isDisabled" on "ActionButton" -->
   * "an error has occured" page state
   * form:
-    * email address
+    <!-- * email address -->
       <!-- * [frontend] validation: can't be empty -->
       <!-- * [frontend] validation: is valid email? (maybe use "email validator" package) -->
       <!-- * [backend] validation: is already in use? -->
-    * username
+    <!-- * username -->
       <!-- * [frontend] validation: can't be empty -->
       <!-- * [frontend] validation: not more than 16 characters -->
       <!-- * raise "maxlength" to 24 characters -->
       <!-- * [backend] validation: is already in use? -->
-    * password
+    <!-- * password -->
       <!-- * [frontend] validation: can't be empty -->
       <!-- * [frontend] validation: not strong enough (show a check for each one validate checks) -->
   * after completed successfully
@@ -53,3 +53,27 @@
 ...
 * i18n (so this work can be evaluted from my github)
 * Add e2e tests with Cypress (using the backend on a docker container)
+
+
+-----
+
+neymar gifs
+
+neymar explosão
+https://media.giphy.com/media/d5NQmO0EFYPevpy1dn/giphy.gif
+
+neymar golaço super sayadin
+https://giphy.com/gifs/super-neymar-saiyan-LLuUv0UWULqQU
+https://media3.giphy.com/media/LLuUv0UWULqQU/giphy-downsized-small.mp4
+
+neymar mad
+https://giphy.com/gifs/fc-barcelona-neymar-jr-56zM89yEGQm6Q
+
+marcelo
+https://giphy.com/gifs/soccer-fifa-ey2tRBbjdQy5O
+
+SAMPLE:
+```html
+<video width="400" loop="loop" autoplay>
+  <source src="https://media3.giphy.com/media/LLuUv0UWULqQU/giphy-downsized-small.mp4" type="video/mp4"/>
+```

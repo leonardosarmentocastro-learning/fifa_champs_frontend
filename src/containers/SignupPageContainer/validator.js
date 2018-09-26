@@ -17,6 +17,9 @@ const signupValidator = {
     PASSWORD_NOT_STRONG_ENOUGH: {
       message: 'Senha não é segura o bastante.',
     },
+    SERVER_NOT_REACHABLE: {
+      message: 'Não foi possível se conectar ao servidor.',
+    },
     USERNAME_ALREADY_IN_USE: {
       message: 'O nome escolhido já está em uso.',
     },
