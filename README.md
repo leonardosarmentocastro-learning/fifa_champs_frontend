@@ -8,7 +8,7 @@
   <!-- * The style main class should be the component name, e.g.: `.ActionButton` instead of `.action-button` -->
 2. Sign up page
   <!-- * Add variant for "isDisabled" on "ActionButton" -->
-  * "an error has occured" page state
+  <!-- * "an error has occured" page state -->
   * form:
     <!-- * email address -->
       <!-- * [frontend] validation: can't be empty -->
@@ -24,8 +24,9 @@
       <!-- * [frontend] validation: not strong enough (show a check for each one validate checks) -->
   * after completed successfully
     <!-- * get token on "Authorization" header -->
-    * fire the Authentication process (redux)
-      * [search] how to and what to test?
+    * fire the Authentication process (redux duck)
+      * Put user token on state
+      <!-- * [search] how to and what to test? -->
     * show success page (to be defined - look at the "Premier league" website)
 3. Sign in page
   * form:
@@ -53,7 +54,14 @@
 ...
 * i18n (so this work can be evaluted from my github)
 * Add e2e tests with Cypress (using the backend on a docker container)
-
+6. Code splitting
+  * Redux ducks
+    https://medium.freecodecamp.org/scaling-your-redux-app-with-ducks-6115955638be
+  * Transfer the "USER_CONSTANTS" fetching to Redux ducks?
+  * routes
+    https://github.com/FortechRomania/react-redux-complete-example/blob/master/src/app/routes/index.js
+    https://github.com/FortechRomania/react-redux-complete-example/blob/master/src/client/index.js
+    https://github.com/FortechRomania/react-redux-complete-example/blob/master/src/app/views/layouts/app.js
 
 -----
 

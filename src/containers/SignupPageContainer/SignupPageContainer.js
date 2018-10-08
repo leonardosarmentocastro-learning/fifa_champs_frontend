@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+// TODO: Connect component to store.
+// import { userActions } from '../../redux/ducks/user';
 import signupAPI from './api';
 import SignupPage from '../../components/SignupPage';
 import signupService from './service';
@@ -17,4 +19,5 @@ class SignupPageContainer extends Component {
   }
 }
 
+// TODO: Connect component to store.
 export default SignupPageContainer;

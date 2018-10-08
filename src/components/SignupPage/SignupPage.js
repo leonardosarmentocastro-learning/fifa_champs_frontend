@@ -168,17 +168,17 @@ class SignupPage extends Component {
   }
 
   render() {
+    if (!!this.state.page.error) {
+      return (<ErrorPage
+        error={this.state.page.error}
+        retry={this.state.page.retry}
+      />);
+    }
+
     return (
       <Fragment>
         {this.state.page.isLoading &&
           <LoadingPageContent />
-        }
-
-        {!!this.state.page.error &&
-          <ErrorPage
-            error={this.state.page.error}
-            retry={this.state.page.retry}
-          />
         }
 
         <div className='SignupPage shared-props-for-page'>
