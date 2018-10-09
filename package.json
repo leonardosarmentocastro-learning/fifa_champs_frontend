@@ -20,7 +20,5 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "devDependencies": {
-    "redux-devtools": "^3.4.1"
-  }
+  "devDependencies": {}
 }

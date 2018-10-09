@@ -107,6 +107,10 @@ class SignupPage extends Component {
         error: error.message,
         isPristine: false,
       },
+      page: {
+        ...prevState.page,
+        isSubmitting: false,
+      }
     }), others.callback);
   }
 
@@ -141,8 +145,7 @@ class SignupPage extends Component {
     }), async () => {
       try {
         const token = await this.props.API.signup(this.user);
-        console.log('### TODO: FIRE AUTHENTICATION PROCESS.', token);
-        // this.props.service.authenticate(token); // TODO: Fire authentication process.
+        this.props.authenticate(token);
       } catch(err) {
         const { ERRORS } = this.props.validator;
         const { code, field } = err;
@@ -251,8 +254,8 @@ SignupPage.propTypes = {
   API: PropTypes.shape({
     signup: PropTypes.func.isRequired,
   }),
+  authenticate: PropTypes.func.isRequired,
   service: PropTypes.shape({
-    authenticate: PropTypes.func.isRequired, // TODO: Fire authentication process.
     fetchUsersConstraints: PropTypes.func.isRequired,
   }),
   validator: PropTypes.shape({
