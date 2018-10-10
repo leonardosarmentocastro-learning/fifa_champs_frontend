@@ -21,11 +21,6 @@ class SignupPageContainer extends Component {
     this.initialize();
   }
 
-  authenticate = (token) => {
-    this.props.setAuthorizationToken(token);
-    // TODO: change route.
-  }
-
   initialize = async () => {
     try {
       const constraints = await this.props.signupService.fetchUsersConstraints();
@@ -51,6 +46,11 @@ class SignupPageContainer extends Component {
     }
   }
 
+  onSubmit = async (user) => {
+    const token = await this.props.signupAPI.signup(user);
+    this.props.setAuthorizationToken(token);
+  }
+
   render() {
     if (!!this.state.page.error) {
       return (<ErrorPage
@@ -67,11 +67,8 @@ class SignupPageContainer extends Component {
 
     return (
       <SignupPage
-        // [TODO-1]: Probably refactor this and avoid passing down to the component.
-        API={this.props.signupAPI}
-        authenticate={this.authenticate}
-
         constraints={this.state.constraints}
+        onSubmit={this.onSubmit}
         validator={this.props.signupValidator}
       />
     );
@@ -84,8 +81,14 @@ SignupPageContainer.propTypes = {
     fetchUsersConstraints: PropTypes.func.isRequired,
   }),
   signupValidator: PropTypes.shape({
-    SERVER_NOT_REACHABLE: PropTypes.string.isRequired,
-    UNMAPPED_ERROR: PropTypes.string.isRequired,
+    ERRORS: PropTypes.shape({
+      SERVER_NOT_REACHABLE: PropTypes.shape({
+        message: PropTypes.string.isRequired,
+      }).isRequired,
+      UNMAPPED_ERROR: PropTypes.shape({
+        message: PropTypes.string.isRequired,
+      }).isRequired,
+    }),
   }),
   setAuthorizationToken: PropTypes.func.isRequired,
 };

@@ -108,10 +108,9 @@ class SignupPage extends Component {
       },
     }), async () => {
       try {
-        // [TODO-1]: Probably refactor this and lift it up to the container.
-        const token = await this.props.API.signup(this.user);
-        this.props.authenticate(token);
-
+        await this.props.onSubmit(this.user);
+        // [TODO-2]: Render a "page.success" component which you can click "on board me" or "go to matches page".
+        // NOTE: This "page.success" needs to have the neymar gif.
       } catch(err) {
         const { ERRORS } = this.props.validator;
         const { code, field } = err;
@@ -153,49 +152,41 @@ class SignupPage extends Component {
 
           <form className='form'>
             <TextInput
-              error={this.state.email.error}
-              isRequired={this.state.email.isRequired}
-              isPristine={this.state.email.isPristine}
+              {...this.state.email}
+
               label='Email'
               onChange={this.setValueToField('email')}
               onBlur={this.validateField('email')}
               placeholder='cr7@adidas.com'
-              value={this.state.email.value}
             />
 
             <TextInput
-              error={this.state.username.error}
-              isRequired={this.state.username.isRequired}
-              isPristine={this.state.username.isPristine}
+              {...this.state.username}
+
               label='Username'
               note={this.props.constraints ? `Máximo de ${this.props.constraints.username.maxlength} caractéres`: ''}
               onChange={this.setValueToField('username')}
               onBlur={this.validateField('username')}
               placeholder='@rborcat'
-              value={this.state.username.value}
             />
 
             <TextInput
-              error={this.state.password.error}
-              isRequired={this.state.password.isRequired}
-              isPristine={this.state.password.isPristine}
+              {...this.state.password}
+
               label='Senha'
               note={this.props.constraints ? this.props.constraints.password.rules : ''}
               onChange={this.setValueToField('password')}
               onBlur={this.validateField('password', { callback: this.resetConfirmPassword })}
               type='password'
-              value={this.state.password.value}
             />
 
             <TextInput
-              error={this.state.confirmPassword.error}
-              isRequired={this.state.confirmPassword.isRequired}
-              isPristine={this.state.confirmPassword.isPristine}
+              {...this.state.confirmPassword}
+
               label='Confirmar senha'
               onChange={this.setValueToField('confirmPassword')}
               onBlur={this.validateField('confirmPassword', { password: { ...this.state.password } })}
               type='password'
-              value={this.state.confirmPassword.value}
             />
 
             <ActionButton
@@ -221,12 +212,12 @@ SignupPage.propTypes = {
 
   // NOTE: Used by the "validator".
   constraints: PropTypes.shape({
-    password: {
+    password: PropTypes.shape({
       stringRegex: PropTypes.string.isRequired,
       rules: PropTypes.string.isRequired,
-    },
+    }),
     username: PropTypes.shape({
-      maxlength: PropTypes.string.isRequired,
+      maxlength: PropTypes.number.isRequired,
     }),
     expirationDate: PropTypes.string.isRequired,
   }),
