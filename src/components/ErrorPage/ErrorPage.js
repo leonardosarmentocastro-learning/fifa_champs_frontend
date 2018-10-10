@@ -1,5 +1,6 @@
 import React from 'react';
 import { random } from 'lodash';
+import PropTypes from 'prop-types';
 
 import ActionButton from '../ActionButton';
 import './ErrorPage.styles.css';
@@ -21,7 +22,7 @@ const RandomGif = () => {
   );
 };
 
-const ErrorPage = ({ error, retry }) => (
+const ErrorPage = ({ cancel, error, retry }) => (
   <div className='ErrorPage shared-props-for-page'>
     <div className='title-container'>
       <p className='title'>ÔÔÔ DESGRAÇA</p>
@@ -41,8 +42,15 @@ const ErrorPage = ({ error, retry }) => (
     <ActionButton
       colorName='dark'
       text='Cancelar'
+      onClick={cancel}
     />
   </div>
 );
+
+ErrorPage.propTypes = {
+  cancel: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
+  retry: PropTypes.func.isRequired,
+};
 
 export default ErrorPage;

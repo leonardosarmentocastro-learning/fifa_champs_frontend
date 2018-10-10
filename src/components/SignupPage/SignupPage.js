@@ -14,15 +14,16 @@ class SignupPage extends Component {
       isRequired: true,
       value: '',
     },
-  };
-  state = {
-    confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
-    email: this.DEFAULT.STATE_FOR_FIELD,
-    page: {
+    STATE_FOR_PAGE: {
       error: '',
       isSubmitting: false,
       retry: null,
     },
+  };
+  state = {
+    confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
+    email: this.DEFAULT.STATE_FOR_FIELD,
+    page: this.DEFAULT.STATE_FOR_PAGE,
     password: this.DEFAULT.STATE_FOR_FIELD,
     username: this.DEFAULT.STATE_FOR_FIELD,
   };
@@ -53,6 +54,12 @@ class SignupPage extends Component {
       password: password.value,
       username: username.value,
     };
+  }
+
+  hideErrorPage = () => {
+    this.setState({
+      page: this.DEFAULT.STATE_FOR_PAGE,
+    });
   }
 
   resetConfirmPassword = () => {
@@ -140,6 +147,7 @@ class SignupPage extends Component {
       return (<ErrorPage
         error={this.state.page.error}
         retry={this.state.page.retry}
+        cancel={this.hideErrorPage}
       />);
     }
 
@@ -204,12 +212,6 @@ class SignupPage extends Component {
 }
 
 SignupPage.propTypes = {
-  // [TODO-1]: Probably refactor this and lift it up to the container.
-  API: PropTypes.shape({
-    signup: PropTypes.func.isRequired,
-  }),
-  authenticate: PropTypes.func.isRequired,
-
   // NOTE: Used by the "validator".
   constraints: PropTypes.shape({
     password: PropTypes.shape({
@@ -221,6 +223,8 @@ SignupPage.propTypes = {
     }),
     expirationDate: PropTypes.string.isRequired,
   }),
+
+  onSubmit: PropTypes.func.isRequired,
 
   validator: PropTypes.shape({
     ERRORS: PropTypes.shape({
