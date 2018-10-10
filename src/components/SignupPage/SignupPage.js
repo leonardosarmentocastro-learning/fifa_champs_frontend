@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import ActionButton from '../ActionButton';
 import ErrorPage from '../ErrorPage';
-import LoadingPageContent from '../LoadingPageContent';
 import TextInput from '../TextInput';
 import './SignupPage.styles.css';
 
@@ -18,11 +17,9 @@ class SignupPage extends Component {
   };
   state = {
     confirmPassword: this.DEFAULT.STATE_FOR_FIELD,
-    constraints: null,
     email: this.DEFAULT.STATE_FOR_FIELD,
     page: {
       error: '',
-      isLoading: true,
       isSubmitting: false,
       retry: null,
     },
@@ -34,7 +31,7 @@ class SignupPage extends Component {
     return {
       // Returns an array where each item corresponds to a form field key.
       fields: () => Object.keys(this.state)
-        .filter(key => (key !== 'page' && key !== 'constraints')),
+        .filter(key => (key !== 'page')),
 
       hasErrors: () => {
         return this.form.fields()
@@ -56,38 +53,6 @@ class SignupPage extends Component {
       password: password.value,
       username: username.value,
     };
-  }
-
-  componentDidMount = () => {
-    this.initialize();
-  }
-
-  initialize = () => {
-    this.setState(prevState => ({
-      page: {
-        ...prevState.page,
-        error: '',
-        isLoading: true,
-      },
-    }), async () => {
-      try {
-        const constraints = await this.props.service.fetchUsersConstraints();
-        this.setState(prevState => ({
-          constraints,
-          page: {
-            ...prevState.page,
-            isLoading: false,
-          }
-        }));
-      } catch (err) {
-        const { ERRORS } = this.props.validator;
-        const retry = this.initialize;
-
-        const hasReceivedResponseFromServer = Boolean(err.response);
-        const error = (hasReceivedResponseFromServer ? ERRORS.UNMAPPED_ERROR : ERRORS.SERVER_NOT_REACHABLE);
-        this.setErrorToPage(error, retry);
-      }
-    });
   }
 
   resetConfirmPassword = () => {
@@ -118,7 +83,6 @@ class SignupPage extends Component {
     this.setState({
       page: {
         error: error.message,
-        isLoading: false,
         isSubmitting: false,
         retry,
       },
@@ -144,8 +108,10 @@ class SignupPage extends Component {
       },
     }), async () => {
       try {
+        // [TODO-1]: Probably refactor this and lift it up to the container.
         const token = await this.props.API.signup(this.user);
         this.props.authenticate(token);
+
       } catch(err) {
         const { ERRORS } = this.props.validator;
         const { code, field } = err;
@@ -161,8 +127,8 @@ class SignupPage extends Component {
   }
 
   validateField = (field, others = {}) => (event) => {
+    const { constraints } = this.props;
     const {
-      constraints,
       [field]: { value },
     } = this.state;
 
@@ -180,10 +146,6 @@ class SignupPage extends Component {
 
     return (
       <Fragment>
-        {this.state.page.isLoading &&
-          <LoadingPageContent />
-        }
-
         <div className='SignupPage shared-props-for-page'>
           <div className='title-container'>
             <p className='title'>Registrar-se</p>
@@ -206,7 +168,7 @@ class SignupPage extends Component {
               isRequired={this.state.username.isRequired}
               isPristine={this.state.username.isPristine}
               label='Username'
-              note={this.state.constraints ? `Máximo de ${this.state.constraints.username.maxlength} caractéres`: ''}
+              note={this.props.constraints ? `Máximo de ${this.props.constraints.username.maxlength} caractéres`: ''}
               onChange={this.setValueToField('username')}
               onBlur={this.validateField('username')}
               placeholder='@rborcat'
@@ -218,7 +180,7 @@ class SignupPage extends Component {
               isRequired={this.state.password.isRequired}
               isPristine={this.state.password.isPristine}
               label='Senha'
-              note={this.state.constraints ? this.state.constraints.password.rules : ''}
+              note={this.props.constraints ? this.props.constraints.password.rules : ''}
               onChange={this.setValueToField('password')}
               onBlur={this.validateField('password', { callback: this.resetConfirmPassword })}
               type='password'
@@ -251,13 +213,24 @@ class SignupPage extends Component {
 }
 
 SignupPage.propTypes = {
+  // [TODO-1]: Probably refactor this and lift it up to the container.
   API: PropTypes.shape({
     signup: PropTypes.func.isRequired,
   }),
   authenticate: PropTypes.func.isRequired,
-  service: PropTypes.shape({
-    fetchUsersConstraints: PropTypes.func.isRequired,
+
+  // NOTE: Used by the "validator".
+  constraints: PropTypes.shape({
+    password: {
+      stringRegex: PropTypes.string.isRequired,
+      rules: PropTypes.string.isRequired,
+    },
+    username: PropTypes.shape({
+      maxlength: PropTypes.string.isRequired,
+    }),
+    expirationDate: PropTypes.string.isRequired,
   }),
+
   validator: PropTypes.shape({
     ERRORS: PropTypes.shape({
       EMAIL_ALREADY_IN_USE: PropTypes.shape({
