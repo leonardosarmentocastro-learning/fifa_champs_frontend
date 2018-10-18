@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -9,6 +9,7 @@ import {
 import configureShared from '../../shared';
 import NavigationContainer from '../NavigationContainer';
 import ResultsPageContainer from '../ResultsPageContainer';
+import RouteChangeListenerContainer from '../RouteChangeListenerContainer';
 import {
   signupAPI,
   SignupPageContainer,
@@ -27,31 +28,31 @@ class App extends Component {
 
   render() {
     return (
-        <Router>
-          <Fragment>
-            <NavigationContainer />
+      <Router>
+        <RouteChangeListenerContainer>
+          <NavigationContainer />
 
-            <Switch>
-              <Route
-                exact path={'/results'}
-                render={() => <ResultsPageContainer />}
-              />
+          <Switch>
+            <Route
+              exact path={'/results'}
+              render={() => <ResultsPageContainer />}
+            />
 
-              <Route
-                exact path={'/sign_up'}
-                render={() => <SignupPageContainer
-                  signupAPI={signupAPI}
-                  signupService={signupService}
-                  signupValidator={signupValidator}
-                />}
-              />
+            <Route
+              exact path={'/sign_up'}
+              render={() => <SignupPageContainer
+                signupAPI={signupAPI}
+                signupService={signupService}
+                signupValidator={signupValidator}
+              />}
+            />
 
-              <Route
-                render={() => <Redirect to={'/sign_up'} />}
-              />
-            </Switch>
-          </Fragment>
-        </Router>
+            <Route
+              render={() => <Redirect to={'/sign_up'} />}
+            />
+          </Switch>
+        </RouteChangeListenerContainer>
+      </Router>
     );
   }
 }

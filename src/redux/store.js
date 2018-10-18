@@ -1,10 +1,18 @@
 import { createStore, combineReducers } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage';
 
 import * as reducers from './ducks';
 
 const rootReducer = combineReducers(reducers);
-const store = createStore(rootReducer,
 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+// Setup for persisting the state on localStorage.
+const persistConfig = { key: 'root', storage };
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default store;
+const store = createStore(persistedReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+const persistor = persistStore(store);
+
+export default { store, persistor };

@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ActionButton from '../ActionButton';
 import ErrorPage from '../ErrorPage';
+import SignupSuccessfulPage from './SignupSuccessfulPage';
 import TextInput from '../TextInput';
 import './SignupPage.styles.css';
 
@@ -16,6 +17,7 @@ class SignupPage extends Component {
     },
     STATE_FOR_PAGE: {
       error: '',
+      hasCompletedSignupSuccessfully: false,
       isSubmitting: false,
       retry: null,
     },
@@ -116,8 +118,13 @@ class SignupPage extends Component {
     }), async () => {
       try {
         await this.props.onSubmit(this.user);
-        // [TODO-2]: Render a "page.success" component which you can click "on board me" or "go to matches page".
-        // NOTE: This "page.success" needs to have the neymar gif.
+
+        this.setState({
+          page: {
+            ...this.DEFAULT.STATE_FOR_PAGE,
+            hasCompletedSignupSuccessfully: true,
+          }
+        });
       } catch(err) {
         const { ERRORS } = this.props.validator;
         const { code, field } = err;
@@ -151,62 +158,67 @@ class SignupPage extends Component {
       />);
     }
 
+    if (!!this.state.page.hasCompletedSignupSuccessfully) {
+      return (<SignupSuccessfulPage
+        goToMyProfile={this.props.goToMyProfile}
+        goToResultsPage={this.props.goToResultsPage}
+      />);
+    }
+
     return (
-      <Fragment>
-        <div className='SignupPage shared-props-for-page'>
-          <div className='title-container'>
-            <p className='title'>Registrar-se</p>
-          </div>
-
-          <form className='form'>
-            <TextInput
-              {...this.state.email}
-
-              label='Email'
-              onChange={this.setValueToField('email')}
-              onBlur={this.validateField('email')}
-              placeholder='cr7@adidas.com'
-            />
-
-            <TextInput
-              {...this.state.username}
-
-              label='Username'
-              note={this.props.constraints ? `Máximo de ${this.props.constraints.username.maxlength} caractéres`: ''}
-              onChange={this.setValueToField('username')}
-              onBlur={this.validateField('username')}
-              placeholder='@rborcat'
-            />
-
-            <TextInput
-              {...this.state.password}
-
-              label='Senha'
-              note={this.props.constraints ? this.props.constraints.password.rules : ''}
-              onChange={this.setValueToField('password')}
-              onBlur={this.validateField('password', { callback: this.resetConfirmPassword })}
-              type='password'
-            />
-
-            <TextInput
-              {...this.state.confirmPassword}
-
-              label='Confirmar senha'
-              onChange={this.setValueToField('confirmPassword')}
-              onBlur={this.validateField('confirmPassword', { password: { ...this.state.password } })}
-              type='password'
-            />
-
-            <ActionButton
-              colorName='hotpink'
-              isDisabled={this.form.hasErrors()}
-              isLoading={this.state.page.isSubmitting}
-              onClick={this.submit}
-              text='Continuar'
-            />
-          </form>
+      <div className='SignupPage shared-props-for-page'>
+        <div className='title-container'>
+          <p className='title'>Registrar-se</p>
         </div>
-      </Fragment>
+
+        <form className='form'>
+          <TextInput
+            {...this.state.email}
+
+            label='Email'
+            onChange={this.setValueToField('email')}
+            onBlur={this.validateField('email')}
+            placeholder='cr7@adidas.com'
+          />
+
+          <TextInput
+            {...this.state.username}
+
+            label='Username'
+            note={this.props.constraints ? `Máximo de ${this.props.constraints.username.maxlength} caractéres`: ''}
+            onChange={this.setValueToField('username')}
+            onBlur={this.validateField('username')}
+            placeholder='@rborcat'
+          />
+
+          <TextInput
+            {...this.state.password}
+
+            label='Senha'
+            note={this.props.constraints ? this.props.constraints.password.rules : ''}
+            onChange={this.setValueToField('password')}
+            onBlur={this.validateField('password', { callback: this.resetConfirmPassword })}
+            type='password'
+          />
+
+          <TextInput
+            {...this.state.confirmPassword}
+
+            label='Confirmar senha'
+            onChange={this.setValueToField('confirmPassword')}
+            onBlur={this.validateField('confirmPassword', { password: { ...this.state.password } })}
+            type='password'
+          />
+
+          <ActionButton
+            colorName='hotpink'
+            isDisabled={this.form.hasErrors()}
+            isLoading={this.state.page.isSubmitting}
+            onClick={this.submit}
+            text='Continuar'
+          />
+        </form>
+      </div>
     );
   }
 }
@@ -223,6 +235,9 @@ SignupPage.propTypes = {
     }),
     expirationDate: PropTypes.string.isRequired,
   }),
+
+  goToMyProfile: PropTypes.func.isRequired,
+  goToResultsPage: PropTypes.func.isRequired,
 
   onSubmit: PropTypes.func.isRequired,
 

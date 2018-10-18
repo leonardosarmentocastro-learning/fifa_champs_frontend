@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { userActions } from '../../redux/ducks/user';
 import ErrorPage from '../../components/ErrorPage';
@@ -20,6 +21,10 @@ class SignupPageContainer extends Component {
   componentDidMount = () => {
     this.initialize();
   }
+
+  goToMyProfile = () => console.log('### TODO: My profile page.');
+
+  goToResultsPage = () => this.props.history.push('/results'); // TODO: Constants for routes.
 
   initialize = async () => {
     try {
@@ -68,6 +73,8 @@ class SignupPageContainer extends Component {
     return (
       <SignupPage
         constraints={this.state.constraints}
+        goToMyProfile={this.goToMyProfile}
+        goToResultsPage={this.goToResultsPage}
         onSubmit={this.onSubmit}
         validator={this.props.signupValidator}
       />
@@ -94,6 +101,8 @@ SignupPageContainer.propTypes = {
 };
 
 const { setAuthorizationToken } = userActions;
-export default connect(null, {
-  setAuthorizationToken
-})(SignupPageContainer);
+export default withRouter(
+  connect(null, {
+    setAuthorizationToken
+  })(SignupPageContainer)
+);

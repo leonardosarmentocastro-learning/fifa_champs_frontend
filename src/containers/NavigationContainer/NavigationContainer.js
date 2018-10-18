@@ -58,12 +58,7 @@ class NavigationContainer extends Component {
       menu: {
         isOpen: !prevState.menu.isOpen,
       }
-    }), () => {
-      // Used to "redirectToPage" after toggling the menu.
-      if (callback) {
-        callback();
-      }
-    });
+    }), callback); // Used to "redirectToPage" after toggling the menu.
   }
 
   render() {
