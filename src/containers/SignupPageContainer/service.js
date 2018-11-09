@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import signupApi from './api';
+import signupAPI from './api';
 
 const signupService = {
   LOCAL_STORAGE_KEYS: {
@@ -35,7 +35,7 @@ const signupService = {
     return constraints;
   },
   async refreshUsersContrainstsOnLocalStorage() {
-    this.usersConstraints = await signupApi.getConstraints();
+    this.usersConstraints = await signupAPI.getConstraints();
     return this.usersConstraints;
   },
 };
