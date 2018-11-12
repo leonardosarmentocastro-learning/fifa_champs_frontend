@@ -5,6 +5,12 @@ const setAuthorizationToken = (token) => ({
   payload: { token },
 });
 
+const setConstraints = (constraints) => ({
+  type: types.SET_CONSTRAINTS,
+  payload: { constraints },
+});
+
 export default {
   setAuthorizationToken,
+  setConstraints,
 };

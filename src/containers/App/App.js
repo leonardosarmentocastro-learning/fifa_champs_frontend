@@ -13,7 +13,6 @@ import RouteChangeListenerContainer from '../RouteChangeListenerContainer';
 import {
   signupAPI,
   SignupPageContainer,
-  signupService,
   signupValidator,
 } from '../SignupPageContainer';
 import '../../shared/styles/font-faces.css';
@@ -42,7 +41,6 @@ class App extends Component {
               exact path={'/sign_up'}
               render={() => <SignupPageContainer
                 signupAPI={signupAPI}
-                signupService={signupService}
                 signupValidator={signupValidator}
               />}
             />

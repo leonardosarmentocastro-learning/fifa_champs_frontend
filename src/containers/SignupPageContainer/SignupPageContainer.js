@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { DateTime } from 'luxon';
 import { withRouter } from 'react-router-dom';
 
 import { userActions } from '../../redux/ducks/user';
@@ -18,8 +19,26 @@ class SignupPageContainer extends Component {
     },
   };
 
-  componentDidMount = () => {
-    this.initialize();
+  componentDidMount = () => this.initialize();
+
+  fetchUsersConstraints = async () => {
+    const { constraints } = this.props;
+
+    const hasConstraintsOnApplicationState = Boolean(constraints);
+    if (!hasConstraintsOnApplicationState) {
+      const userConstraints = await this.props.signupAPI.getConstraints();
+      return userConstraints;
+    }
+
+    const expirationDate = DateTime.fromISO(constraints.expirationDate).valueOf();
+    const now = DateTime.local().valueOf();
+    const doesConstraintsNeedsToBeRefreshed = (now >= expirationDate);
+    if (doesConstraintsNeedsToBeRefreshed) {
+      const userConstraints = await this.props.signupAPI.getConstraints();
+      return userConstraints;
+    }
+
+    return constraints;
   }
 
   goToMyProfile = () => console.log('### TODO: My profile page.');
@@ -28,7 +47,9 @@ class SignupPageContainer extends Component {
 
   initialize = async () => {
     try {
-      const constraints = await this.props.signupService.fetchUsersConstraints();
+      const constraints = await this.fetchUsersConstraints();
+      this.props.setConstraints(constraints);
+
       this.setState({
         constraints,
         page: {
@@ -83,10 +104,17 @@ class SignupPageContainer extends Component {
 }
 
 SignupPageContainer.propTypes = {
-  signupAPI: PropTypes.object.isRequired,
-  signupService: PropTypes.shape({
-    fetchUsersConstraints: PropTypes.func.isRequired,
+  constraints: PropTypes.shape({
+    expirationDate: PropTypes.string.isRequired,
+    password: PropTypes.shape({
+      rules: PropTypes.string.isRequired,
+      stringRegex: PropTypes.string.isRequired,
+    }),
+    username: PropTypes.shape({
+      maxlength: PropTypes.number.isRequired,
+    }),
   }),
+  signupAPI: PropTypes.object.isRequired,
   signupValidator: PropTypes.shape({
     ERRORS: PropTypes.shape({
       SERVER_NOT_REACHABLE: PropTypes.shape({
@@ -100,9 +128,9 @@ SignupPageContainer.propTypes = {
   setAuthorizationToken: PropTypes.func.isRequired,
 };
 
-const { setAuthorizationToken } = userActions;
+const { setAuthorizationToken, setConstraints } = userActions;
+const mapStateToProps = state => ({ constraints: state.user.constraints });
+const mapDispatchToProps = { setAuthorizationToken, setConstraints };
 export default withRouter(
-  connect(null, {
-    setAuthorizationToken
-  })(SignupPageContainer)
+  connect(mapStateToProps, mapDispatchToProps)(SignupPageContainer)
 );
