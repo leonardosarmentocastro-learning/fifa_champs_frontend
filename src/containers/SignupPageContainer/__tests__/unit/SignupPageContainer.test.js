@@ -1,3 +1,5 @@
+import { shallow } from 'enzyme';
+
 describe('[unit-test] SignupPageContainer', () => {
   describe('[method] fetchUsersConstraints', () => {
     it('must fetch "constraints" if they are not present on the "application state"', () => {

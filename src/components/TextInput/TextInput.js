@@ -5,7 +5,7 @@ import Err from './Err';
 import FieldIsRequiredHint from './FieldIsRequiredHint';
 import Note from './Note';
 import StatusIcon from './StatusIcon';
-import './TextInput.styles.css';
+import './TextInput.styles.scss';
 
 const TextInput = ({
   error,

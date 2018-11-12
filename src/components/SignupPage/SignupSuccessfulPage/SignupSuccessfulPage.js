@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ActionButton from '../../ActionButton';
-import './SignupSuccessfulPage.styles.css';
+import './SignupSuccessfulPage.styles.scss';
 
 const NeymarGif = () => {
   const gif = 'https://media3.giphy.com/media/LLuUv0UWULqQU/giphy-downsized-small.mp4';

@@ -3,7 +3,7 @@ import { random } from 'lodash';
 import PropTypes from 'prop-types';
 
 import ActionButton from '../ActionButton';
-import './ErrorPage.styles.css';
+import './ErrorPage.styles.scss';
 
 const GIFS = [
   'https://media3.giphy.com/media/d5NQmO0EFYPevpy1dn/giphy-downsized-small.mp4', // neymar-explosion

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './SectionDivider.styles.css';
+import './SectionDivider.styles.scss';
 
 const SectionDivider = ({ text }) => (
   <li className='SectionDivider item'>

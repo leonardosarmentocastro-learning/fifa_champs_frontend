@@ -3,7 +3,7 @@ import React from 'react';
 
 import MatchDetails from '../MatchDetails';
 import MatchTags from '../MatchTags';
-import './ResultsList.styles.css';
+import './ResultsList.styles.scss';
 
 const ResultsList = () => (
   <div className='ResultsList'>

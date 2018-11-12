@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './MatchDetails.styles.css';
+import './MatchDetails.styles.scss';
 
 const MatchDetails = () => (
   <div className='MatchDetails'>

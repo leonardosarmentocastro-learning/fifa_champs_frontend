@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ActionButton from '../ActionButton';
 import ResultsList from '../ResultsList';
-import './ResultsPage.styles.css';
+import './ResultsPage.styles.scss';
 
 export class ResultsPage extends Component {
   render() {

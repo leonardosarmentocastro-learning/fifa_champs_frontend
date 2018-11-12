@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './StatusIcon.styles.css';
+import './StatusIcon.styles.scss';
 
 const StatusIcon = ({ hasErrors, isPristine }) => {
   const cssVariant = (() => {

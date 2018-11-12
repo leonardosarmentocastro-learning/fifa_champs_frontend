@@ -5,7 +5,7 @@ import ActionButton from '../ActionButton';
 import ErrorPage from '../ErrorPage';
 import SignupSuccessfulPage from './SignupSuccessfulPage';
 import TextInput from '../TextInput';
-import './SignupPage.styles.css';
+import './SignupPage.styles.scss';
 
 class SignupPage extends Component {
   DEFAULT = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Note.styles.css';
+import './Note.styles.scss';
 
 const Note = ({ note }) =>
   <p className='Note'>{note.trim()}</p>

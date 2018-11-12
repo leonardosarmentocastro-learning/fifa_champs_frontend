@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './MatchTags.styles.css';
+import './MatchTags.styles.scss';
 
 const MatchTags = () => (
   <div className='MatchTags'>

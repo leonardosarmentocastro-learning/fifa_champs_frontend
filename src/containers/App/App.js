@@ -15,10 +15,10 @@ import {
   SignupPageContainer,
   signupValidator,
 } from '../SignupPageContainer';
-import '../../shared/styles/font-faces.css';
-import '../../shared/styles/variables.css';
-import '../../shared/styles/props-for-page.css';
-import './App.styles.css';
+import '../../shared/styles/font-faces.scss';
+import '../../shared/styles/variables.scss';
+import '../../shared/styles/props-for-page.scss';
+import './App.styles.scss';
 
 class App extends Component {
   componentDidMount() {

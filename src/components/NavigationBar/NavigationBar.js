@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './NavigationBar.styles.css';
+import './NavigationBar.styles.scss';
 
 class NavigationBar extends Component {
   render() {

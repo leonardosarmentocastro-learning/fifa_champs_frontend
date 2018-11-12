@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LoadingSpinner from './LoadingSpinner';
-import './LoadingPageContent.styles.css';
+import './LoadingPageContent.styles.scss';
 
 const LoadingPageContent = () => (
   <div className='LoadingPageContent shared-props-for-page'>

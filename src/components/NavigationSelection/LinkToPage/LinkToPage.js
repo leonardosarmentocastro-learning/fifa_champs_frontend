@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './LinkToPage.styles.css';
+import './LinkToPage.styles.scss';
 
 const LinkToPage = (props) => (
   <li className={`LinkToPage item
