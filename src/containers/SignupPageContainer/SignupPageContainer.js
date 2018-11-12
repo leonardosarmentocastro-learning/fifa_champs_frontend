@@ -126,6 +126,7 @@ SignupPageContainer.propTypes = {
     }),
   }),
   setAuthorizationToken: PropTypes.func.isRequired,
+  setConstraints: PropTypes.func.isRequired,
 };
 
 const { setAuthorizationToken, setConstraints } = userActions;
