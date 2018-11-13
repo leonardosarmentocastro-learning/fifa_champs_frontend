@@ -9,7 +9,7 @@ import ErrorPage from '../../components/ErrorPage';
 import LoadingPageContent from '../../components/LoadingPageContent';
 import SignupPage from '../../components/SignupPage';
 
-class SignupPageContainer extends Component {
+export class SignupPageContainer extends Component {
   state = {
     constraints: null,
     page: {
@@ -48,6 +48,7 @@ class SignupPageContainer extends Component {
   initialize = async () => {
     try {
       const constraints = await this.fetchUsersConstraints();
+      console.log('### constraints', constraints);
       this.props.setConstraints(constraints);
 
       this.setState({
@@ -55,7 +56,7 @@ class SignupPageContainer extends Component {
         page: {
           isLoading: false,
         },
-      });
+      }, console.log('### this.state', this.state));
     } catch (err) {
       const { ERRORS } = this.props.signupValidator;
       const retry = this.initialize;
@@ -114,7 +115,10 @@ SignupPageContainer.propTypes = {
       maxlength: PropTypes.number.isRequired,
     }),
   }),
-  signupAPI: PropTypes.object.isRequired,
+  signupAPI: PropTypes.shape({
+    getConstraints: PropTypes.func.isRequired,
+    signup: PropTypes.func.isRequired,
+  }),
   signupValidator: PropTypes.shape({
     ERRORS: PropTypes.shape({
       SERVER_NOT_REACHABLE: PropTypes.shape({
@@ -130,6 +134,9 @@ SignupPageContainer.propTypes = {
 };
 
 const { setAuthorizationToken, setConstraints } = userActions;
+// TODO: write a "selector" for "mapStateToProps", so the component don't need to understand the shape
+// of the state and you can unit test the selector itself.
+// https://github.com/reduxjs/react-redux/issues/325#issuecomment-262223079
 const mapStateToProps = state => ({ constraints: state.user.constraints });
 const mapDispatchToProps = { setAuthorizationToken, setConstraints };
 export default withRouter(

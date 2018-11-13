@@ -18,11 +18,14 @@
   },
   "scripts": {
     "eject": "react-scripts eject",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --verbose=false",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
