@@ -48,7 +48,6 @@ export class SignupPageContainer extends Component {
   initialize = async () => {
     try {
       const constraints = await this.fetchUsersConstraints();
-      console.log('### constraints', constraints);
       this.props.setConstraints(constraints);
 
       this.setState({
@@ -56,7 +55,7 @@ export class SignupPageContainer extends Component {
         page: {
           isLoading: false,
         },
-      }, console.log('### this.state', this.state));
+      });
     } catch (err) {
       const { ERRORS } = this.props.signupValidator;
       const retry = this.initialize;
@@ -81,6 +80,7 @@ export class SignupPageContainer extends Component {
   render() {
     if (!!this.state.page.error) {
       return (<ErrorPage
+        cancel={() => console.log('TODO')}
         error={this.state.page.error}
         retry={this.state.page.retry}
       />);
