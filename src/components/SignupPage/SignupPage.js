@@ -81,10 +81,11 @@ class SignupPage extends Component {
         error: error.message,
         isPristine: false,
       },
-      page: {
-        ...prevState.page,
-        isSubmitting: false,
-      }
+      // TODO: check if this is really not needed (I removed after writing test cases).
+      // page: {
+      //   ...prevState.page,
+      //   isSubmitting: false,
+      // }
     }), others.callback);
   }
 
