@@ -1,36 +1,134 @@
+import React from 'react';
+import { mount } from 'enzyme';
+import { DateTime } from 'luxon';
+
+import ActionButton from '../../../ActionButton';
+import { signupValidator } from '../../../../containers/SignupPageContainer' ;
+import SignupPage from '../../SignupPage';
+import TextInput from '../../../TextInput';
+
+const DEFAULT = {
+  mocks: {
+    props: {
+      // TODO: check if it is really necessary to set this object completly.
+      constraints: {
+        expirationDate: DateTime.local().plus({ hour: 1 }).toISO(),
+        password: {
+          rules: 'At least 8 characters',
+          stringRegex: 'a string regex for validating password',
+        },
+        username: {
+          maxlength: 10,
+        },
+      },
+      goToMyProfile: () => null,
+      goToResultsPage: () => null,
+      onSubmit: async () => await null,
+      validator: signupValidator,
+    },
+  },
+
+  // TODO: check if it is really necessary to set this object completly.
+  specs: {
+
+  },
+};
+const helper = {
+  getComponentInstance(mocks = DEFAULT.mocks) {
+    const wrapper = this.getComponentWrapper(mocks);
+    const component = wrapper.instance();
+
+    return component;
+  },
+  getComponentWrapper(mocks = DEFAULT.mocks) {
+    const wrapper = mount(<SignupPage
+      {...mocks.props}
+    />);
+
+    return wrapper;
+  }
+}
+
 describe('[component] SignupPage', () => {
   describe('initial render', () => {
-    it('must show the "signup form", hiding the "error"/"successful" pages', () => {
+    let mocks;
 
+    beforeEach(() => {
+      mocks = { ...DEFAULT.mocks };
     });
 
-    it('all "fields" must have no value or errors', () => {
+    it('must show the "signup form", hiding the "error"/"successful" pages', () => {
+      const wrapper = helper.getComponentWrapper(mocks);
+      expect(wrapper.find('.SignupPage')).toHaveLength(1);
+    });
 
+    it('all "fields" must be enabled and have no value or errors', () => {
+      const wrapper = helper.getComponentWrapper(mocks);
+      const fields = wrapper.find(TextInput);
+
+      fields.forEach(field => {
+        const props = field.props();
+
+        expect(props.isDisabled).toBeFalsy();
+        expect(props.value).toBe('');
+        expect(props.error).toBe('');
+      });
     });
 
     it('the "action button" must be disabled', () => {
+      const wrapper = helper.getComponentWrapper(mocks);
+      const [actionButton] = wrapper.find(ActionButton);
 
+      expect(actionButton).not.toBeNull();
+      expect(actionButton.props.isDisabled).toBeTruthy();
     });
 
-    it('the "action button" must not show the loading spinner', () => {
+    it('the "action button" must not be showing the loading spinner', () => {
+      const wrapper = helper.getComponentWrapper(mocks);
+      const [actionButton] = wrapper.find(ActionButton);
 
+      expect(actionButton).not.toBeNull();
+      expect(actionButton.props.isLoading).toBeFalsy();
     });
   });
 
   describe('general functional requirements for "fields"', () => {
+    let mocks;
+
+    beforeEach(() => {
+      mocks = { ...DEFAULT.mocks };
+    });
+
     const FIELDS = ['email', 'username', 'password', 'confirmPassword'];
-
     FIELDS.forEach(field => {
-      it(`must contain an "field" for setting "${field}"`, () => {
+      const FIELD_SELECTOR = `TextInput[id="${field}"]`;
+      let textInput, wrapper;
 
+      beforeEach(() => {
+        wrapper = helper.getComponentWrapper(mocks);
+        textInput = wrapper.find(FIELD_SELECTOR);
+      });
+
+      it(`must contain an "text input" for setting "${field}"`, () => {
+        expect(textInput.is(TextInput)).toBeTruthy();
       });
 
       it(`must set value to "${field}" field when focusing and typing on them`, () => {
+        const value = 'any text value';
+        const event = {
+          target: { value },
+        };
+        textInput.find('input').simulate('change', event);
 
+        const state = wrapper.update().state();
+        expect(state[field].value).toBe(value);
       });
 
-      it(`must validate "${field}" field after focusing, typing and leaving it`, () => {
+      it(`must validate the "${field}" field after focusing, typing and leaving it`, () => {
+        textInput.find('input').simulate('blur');
 
+        const state = wrapper.update().state();
+        expect(state[field].isPristine).toBeFalsy();
       });
     });
   });
@@ -98,14 +196,36 @@ describe('[component] SignupPage', () => {
 
     });
 
-    // TODO: continue writing the test cases (like "show the signup successful page" etc).
-    it('', () => {
+    it('must show the "signup successful page" after a sucessful form submission', () => {
+
+    });
+
+    // EMAIL_ALREADY_IN_USE
+    // USERNAME_ALREADY_IN_USE
+    it('must show, on fields, mapped errors returned from the backend after an unsucessful form submission', () => {
+
+    });
+
+    // UNMAPPED_ERROR
+    it('must show an error page if the backend returned an unmapped error after an unsucessful form submission', () => {
+
+    });
+
+    it('must give to the user, on the error page, the option to retry the form submission after an unsucessful form submission', () => {
+
+    });
+
+    it('must show the "signup successful page" when retrying the form submission after an unsucessful form submission', () => {
 
     });
   });
 
   describe('[method] submit', () => {
     it('must call the "onSubmit" prop function with "user" as a parameter', () => {
+
+    });
+
+    it(`must disable all form fields when the page is submitting`, () => {
 
     });
   });

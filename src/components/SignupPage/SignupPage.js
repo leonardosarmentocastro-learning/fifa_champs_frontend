@@ -140,7 +140,7 @@ class SignupPage extends Component {
     });
   }
 
-  validateField = (field, others = {}) => (event) => {
+  validateField = (field, others = {}) => (/* event */) => {
     const { constraints } = this.props;
     const {
       [field]: { value },
@@ -176,6 +176,8 @@ class SignupPage extends Component {
           <TextInput
             {...this.state.email}
 
+            isDisabled={this.state.page.isSubmitting}
+            id='email'
             label='Email'
             onChange={this.setValueToField('email')}
             onBlur={this.validateField('email')}
@@ -185,6 +187,8 @@ class SignupPage extends Component {
           <TextInput
             {...this.state.username}
 
+            isDisabled={this.state.page.isSubmitting}
+            id='username'
             label='Username'
             note={this.props.constraints ? `Máximo de ${this.props.constraints.username.maxlength} caractéres`: ''}
             onChange={this.setValueToField('username')}
@@ -195,6 +199,8 @@ class SignupPage extends Component {
           <TextInput
             {...this.state.password}
 
+            isDisabled={this.state.page.isSubmitting}
+            id='password'
             label='Senha'
             note={this.props.constraints ? this.props.constraints.password.rules : ''}
             onChange={this.setValueToField('password')}
@@ -205,6 +211,8 @@ class SignupPage extends Component {
           <TextInput
             {...this.state.confirmPassword}
 
+            isDisabled={this.state.page.isSubmitting}
+            id='confirmPassword'
             label='Confirmar senha'
             onChange={this.setValueToField('confirmPassword')}
             onBlur={this.validateField('confirmPassword', { password: { ...this.state.password } })}

@@ -9,6 +9,8 @@ import './TextInput.styles.scss';
 
 const TextInput = ({
   error,
+  id,
+  isDisabled,
   isPristine,
   isRequired,
   label,
@@ -19,7 +21,7 @@ const TextInput = ({
   type,
   value,
 }) =>
-  <div className='TextInput'>
+  <div id={id} className='TextInput'>
     <div className='field-details'>
       <span className='label'>{label}</span>
       {isRequired ? <FieldIsRequiredHint /> : <span/>}
@@ -33,6 +35,7 @@ const TextInput = ({
     <div className='field-container'>
       <input
         className='input-field'
+        disabled={isDisabled}
         onChange={(event) => onChange(event)}
         onBlur={(event) => onBlur(event)}
         placeholder={placeholder}
@@ -46,6 +49,7 @@ const TextInput = ({
 
 TextInput.propTypes = {
   error: PropTypes.string,
+  id: PropTypes.string,
   isPristine: PropTypes.bool,
   isRequired: PropTypes.bool,
   label: PropTypes.string.isRequired,
@@ -58,6 +62,8 @@ TextInput.propTypes = {
 };
 
 TextInput.defaultProps = {
+  isDisabled: false,
+  isPristine: true,
   isRequired: false,
   note: '',
   placeholder: '',
