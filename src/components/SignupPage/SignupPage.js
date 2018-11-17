@@ -75,27 +75,26 @@ class SignupPage extends Component {
   }
 
   setErrorToField = (field, error, others = {}) => {
-    this.setState(prevState => ({
-      [field]: {
-        ...prevState[field],
-        error: error.message,
-        isPristine: false,
-      },
-      // TODO: check if this is really not needed (I removed after writing test cases).
-      // page: {
-      //   ...prevState.page,
-      //   isSubmitting: false,
-      // }
-    }), others.callback);
+    return new Promise(resolve => {
+      this.setState(prevState => ({
+        [field]: {
+          ...prevState[field],
+          error: error.message,
+          isPristine: false,
+        },
+      }), resolve(others.callback));
+    });
   }
 
   setErrorToPage = (error, retry) => {
-    this.setState({
-      page: {
-        error: error.message,
-        isSubmitting: false,
-        retry,
-      },
+    return new Promise(resolve => {
+      this.setState({
+        page: {
+          error: error.message,
+          isSubmitting: false,
+          retry,
+        },
+      }, resolve);
     });
   }
 
@@ -110,33 +109,35 @@ class SignupPage extends Component {
   }
 
   submit = () => {
-    this.setState(prevState => ({
-      page: {
-        ...prevState.page,
-        error: '',
-        isSubmitting: true,
-      },
-    }), async () => {
-      try {
-        await this.props.onSubmit(this.user);
+    return new Promise(resolve => {
+      this.setState(prevState => ({
+        page: {
+          ...prevState.page,
+          error: '',
+          isSubmitting: true,
+        },
+      }), async () => {
+        try {
+          await this.props.onSubmit(this.user);
 
-        this.setState({
-          page: {
-            ...this.DEFAULT.STATE_FOR_PAGE,
-            hasCompletedSignupSuccessfully: true,
-          }
-        });
-      } catch(err) {
-        const { ERRORS } = this.props.validator;
-        const { code, field } = err;
+          this.setState({
+            page: {
+              ...this.DEFAULT.STATE_FOR_PAGE,
+              hasCompletedSignupSuccessfully: true,
+            }
+          }, resolve);
+        } catch(err) {
+          const { ERRORS } = this.props.validator;
+          const { code, field } = err;
 
-        let error = ERRORS[code];
-        if (error) return this.setErrorToField(field, error);
+          let error = ERRORS[code];
+          if (error) return resolve(this.setErrorToField(field, error));
 
-        const retry = this.submit;
-        error = ERRORS.UNMAPPED_ERROR;
-        this.setErrorToPage(error, retry);
-      }
+          const retry = this.submit;
+          error = ERRORS.UNMAPPED_ERROR;
+          resolve(this.setErrorToPage(error, retry));
+        }
+      });
     });
   }
 
@@ -242,7 +243,6 @@ SignupPage.propTypes = {
     username: PropTypes.shape({
       maxlength: PropTypes.number.isRequired,
     }),
-    expirationDate: PropTypes.string.isRequired,
   }),
 
   goToMyProfile: PropTypes.func.isRequired,
