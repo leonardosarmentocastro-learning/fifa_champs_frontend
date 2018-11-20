@@ -421,28 +421,124 @@ describe('[component] SignupPage', () => {
   });
 
   describe('[getter] form.fields', () => {
-    it('must return an array contaning all the keys that corresponds to input fields on the "signup page" form', () => {
+    let component, mocks;
 
+    beforeEach(() => {
+      mocks = { ...DEFAULT.mocks };
+      component = helper.getComponentInstance(mocks);
+    });
+
+    it('must return an array contaning all the keys that corresponds to input fields on the "signup page" form', () => {
+      const fields = component.form.fields();
+
+      expect(fields).not.toContain('page');
+      expect(fields).toEqual(
+        expect.arrayContaining(['confirmPassword', 'email', 'password', 'username'])
+      );
     });
   });
 
   describe('[getter] form.hasErrors', () => {
-    it('must return "true" if a field is required and the user havent typed any value on it', () => {
+    let component, mocks, specs;
 
+    beforeEach(() => {
+      mocks = { ...DEFAULT.mocks };
+      component = helper.getComponentInstance(mocks);
+
+      specs = {
+        fields: {
+          confirmPassword: {
+            ...component.DEFAULT.STATE_FOR_FIELD,
+            isRequired: false,
+            isPristine: false,
+          },
+          email: {
+            ...component.DEFAULT.STATE_FOR_FIELD,
+            isRequired: false,
+            isPristine: false,
+          },
+          password: {
+            ...component.DEFAULT.STATE_FOR_FIELD,
+            isRequired: false,
+            isPristine: false,
+          },
+          username: {
+            ...component.DEFAULT.STATE_FOR_FIELD,
+            isRequired: false,
+            isPristine: false,
+          },
+        },
+      };
+    });
+
+    it('must return "true" if a field is required and the user havent typed any value on it', () => {
+      component.setState({
+        ...specs.fields,
+
+        confirmPassword: {
+          ...component.DEFAULT.STATE_FOR_FIELD,
+          isRequired: true,
+          isPristine: true,
+        },
+      });
+
+      expect(component.form.hasErrors()).toBeTruthy();
     });
 
     it('must return "true" if a field is required, the user has typed a value on it but it has some internal validation error', () => {
+      component.setState({
+        ...specs.fields,
 
+        email: {
+          ...component.DEFAULT.STATE_FOR_FIELD,
+          error: 'Error message that comes from the "signupValidator".',
+          isRequired: true,
+          isPristine: false,
+        },
+      });
+
+      expect(component.form.hasErrors()).toBeTruthy();
     });
 
     it('must return "false" if a field is required, the user has typed a value on it and has no internal validation error', () => {
+      component.setState({
+        ...specs.fields,
 
+        password: {
+          ...component.DEFAULT.STATE_FOR_FIELD,
+          error: '',
+          isRequired: true,
+          isPristine: false,
+        },
+      });
+
+      expect(component.form.hasErrors()).toBeFalsy();
     });
   });
 
   describe('[getter] user', () => {
-    it('must map the form fields to an object which corresponds to an "user" schema expected by the backend', () => {
+    let component, mocks;
+    let specs = {
+      user: {
+        email: 'email@domain.com',
+        password: '1q2w#E$R',
+        username: '@username',
+      }
+    };
 
+    beforeEach(() => {
+      mocks = { ...DEFAULT.mocks };
+      component = helper.getComponentInstance(mocks);
+    });
+
+    it('must map the form fields to an object which corresponds to an "user" schema expected by the backend', () => {
+      component.setState({
+        email: { value: specs.user.email },
+        password: { value: specs.user.password },
+        username: { value: specs.user.username },
+      });
+
+      expect(component.user).toEqual(specs.user);
     });
   });
 });
