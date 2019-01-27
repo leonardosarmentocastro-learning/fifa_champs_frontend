@@ -88,5 +88,3 @@ SAMPLE:
 <video width="400" loop="loop" autoplay>
   <source src="https://media3.giphy.com/media/LLuUv0UWULqQU/giphy-downsized-small.mp4" type="video/mp4"/>
 ```
-
-TEST
